@@ -41,7 +41,7 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
      */
     public static function getUnit($unitName)
     {
-        // If this class hasn't been initalized yet, do so now
+        // If this class hasn't been initialized yet, do so now
         if (!is_array(static::$registeredUnits)) {
             static::$registeredUnits = [];
             static::initialize();
@@ -66,7 +66,7 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
      */
     protected static function unitNameOrAliasesIsAlreadyRegistered(UnitOfMeasureInterface $unit)
     {
-        // If this class hasn't been initalized yet, do so now
+        // If this class hasn't been initialized yet, do so now
         if (!is_array(static::$registeredUnits)) {
             static::$registeredUnits = [];
             static::initialize();
