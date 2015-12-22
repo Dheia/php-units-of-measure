@@ -186,7 +186,7 @@ trait HasSIUnitsTrait
             }
 
             // If the unit doesn't conflict with any of the already-existing units, register it
-            if (!static::unitNameOrAliasesIsAlreadyRegistered($newUnit)) {
+            if (!static::unitNameOrAliasesAlreadyRegistered($newUnit)) {
                 static::addUnit($newUnit);
             }
         }

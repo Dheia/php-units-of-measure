@@ -9,7 +9,7 @@ class Pumpalumpiness extends AbstractDerivedPhysicalQuantity
 {
     use HasSIUnitsTrait;
 
-    protected static $registeredUnits;
+    protected static $unitDefinitions;
     protected static $componentQuantities;
 
     protected static function initialize()

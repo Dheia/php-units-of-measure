@@ -6,7 +6,7 @@ use PhpUnitsOfMeasure\UnitOfMeasure;
 
 class Area extends AbstractPhysicalQuantity
 {
-    protected static $registeredUnits;
+    protected static $unitDefinitions;
 
     protected static function initialize()
     {

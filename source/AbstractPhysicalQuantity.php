@@ -10,7 +10,7 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
      *
      * @var UnitOfMeasureInterface[]
      */
-    // protected static $registeredUnits;
+    // protected static $unitDefinitions;
 
     /**
      * Register a new unit of measure for all instances of this this physical quantity.
@@ -27,7 +27,7 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
             ]);
         }
 
-        static::$registeredUnits[] = $unit;
+        static::$unitDefinitions[] = $unit;
     }
 
     /**
@@ -42,12 +42,12 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
     public static function getUnit($unitName)
     {
         // If this class hasn't been initialized yet, do so now
-        if (!is_array(static::$registeredUnits)) {
-            static::$registeredUnits = [];
+        if (!is_array(static::$unitDefinitions)) {
+            static::$unitDefinitions = [];
             static::initialize();
         }
 
-        foreach (static::$registeredUnits as $unitOfMeasure) {
+        foreach (static::$unitDefinitions as $unitOfMeasure) {
             if ($unitName === $unitOfMeasure->getName() || $unitOfMeasure->isAliasOf($unitName)) {
                 return $unitOfMeasure;
             }
@@ -67,13 +67,13 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
     protected static function unitNameOrAliasesAlreadyRegistered(UnitOfMeasureInterface $unit)
     {
         // If this class hasn't been initialized yet, do so now
-        if (!is_array(static::$registeredUnits)) {
-            static::$registeredUnits = [];
+        if (!is_array(static::$unitDefinitions)) {
+            static::$unitDefinitions = [];
             static::initialize();
         }
 
         $currentUnitNamesAndAliases = [];
-        foreach (static::$registeredUnits as $unitOfMeasure) {
+        foreach (static::$unitDefinitions as $unitOfMeasure) {
             $currentUnitNamesAndAliases[] = $unitOfMeasure->getName();
             $currentUnitNamesAndAliases = array_merge($currentUnitNamesAndAliases, $unitOfMeasure->getAliases());
         }

@@ -14,7 +14,7 @@ use PhpUnitsOfMeasure\DerivedUnitOfMeasure;
  */
 class UnknownDerivedPhysicalQuantity extends AbstractDerivedPhysicalQuantity
 {
-    protected static $registeredUnits;
+    protected static $unitDefinitions;
     protected static $componentQuantities;
 
     static public function initialize()

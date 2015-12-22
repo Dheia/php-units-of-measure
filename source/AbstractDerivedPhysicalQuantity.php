@@ -83,8 +83,8 @@ abstract class AbstractDerivedPhysicalQuantity extends AbstractPhysicalQuantity 
     // public static function factorsMatchQuantityComponents(array $numerators, array $denominators)
     // {
     //     // If this class hasn't had its default units set, set them now
-    //     if (!is_array(static::$registeredUnits)) {
-    //         static::$registeredUnits = [];
+    //     if (!is_array(static::$unitDefinitions)) {
+    //         static::$unitDefinitions = [];
     //         static::initialize();
     //     }
 

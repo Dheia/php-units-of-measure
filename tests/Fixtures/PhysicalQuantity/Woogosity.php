@@ -10,7 +10,7 @@ class Woogosity extends AbstractPhysicalQuantity
 {
     use HasSIUnitsTrait;
 
-    protected static $registeredUnits;
+    protected static $unitDefinitions;
 
     protected static function initialize()
     {

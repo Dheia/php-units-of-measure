@@ -6,7 +6,7 @@ use PhpUnitsOfMeasure\UnitOfMeasure;
 
 class Acceleration extends AbstractPhysicalQuantity
 {
-    protected static $registeredUnits;
+    protected static $unitDefinitions;
 
     protected static function initialize()
     {
