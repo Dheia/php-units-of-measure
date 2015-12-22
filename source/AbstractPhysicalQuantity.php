@@ -21,7 +21,7 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
      */
     public static function addUnit(UnitOfMeasureInterface $unit)
     {
-        if (static::unitNameOrAliasesIsAlreadyRegistered($unit)) {
+        if (static::unitNameOrAliasesAlreadyRegistered($unit)) {
             throw new Exception\DuplicateUnitNameOrAlias([
                 ':labels' => implode(', ', array_merge([$unit->getName()], $unit->getAliases()))
             ]);
@@ -64,7 +64,7 @@ abstract class AbstractPhysicalQuantity implements PhysicalQuantityInterface
      *
      * @return boolean true if there is a conflict, false if there is not
      */
-    protected static function unitNameOrAliasesIsAlreadyRegistered(UnitOfMeasureInterface $unit)
+    protected static function unitNameOrAliasesAlreadyRegistered(UnitOfMeasureInterface $unit)
     {
         // If this class hasn't been initialized yet, do so now
         if (!is_array(static::$registeredUnits)) {
