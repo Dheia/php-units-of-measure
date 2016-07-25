@@ -1,0 +1,85 @@
+---
+# http://physics.nist.gov/cuu/Units/units.html
+base_units:
+  - name: Length
+    si_unit: m, meter, meters, metre, metres
+    metric_prefixes:
+      - patterns: %pm, %Pmeter, %Pmeters, %Pmetre, %Pmetres
+    conversion_factors:
+      - 0.3048 ft, foot, feet
+      - 0.0254 in, inch, inches
+      - 1609.344 mi, mile, miles
+      - 0.9144 yd, yard, yards
+      - 1852 M, nautical mile, nautical miles, nmi, N
+      - 10000 mil
+      - 149597870700 AU, au, astronomical unit, astronomical units
+
+  - name: Mass
+    si_unit: kg, kilogram, kilograms
+    metric_prefixes:
+      - patterns: %pg, %Pgram, %Pgrams
+      - si_unit_scaling_factor: 1e-3 # Defaults to 1 if not present
+    conversion_factors:
+      - 4.5359237e-1 lb, lbs, pound, pounds
+      - (4.5359237e-1 / 16) oz, ounce, ounces
+      - (4.5359237e-1 * 14) st, stone, stones
+
+  - name: Time
+    si_unit: s, second, seconds
+    metric_prefixes:
+      - patterns: %ps, %Psecond, %Pseconds
+
+  - name: ElectricCurrent
+    si_unit: A, ampere, amperes
+    metric_prefixes:
+      - patterns:  %pA, %Pampere, %Pamperes
+
+  - name: Temperature
+    si_unit: K, °K, kelvin
+    metric_prefixes:
+      - patterns: %pK, %Pkelvin
+    conversion_factors:
+      - (x - 273.15) C, °C, celsius
+      - ((x * 9 / 5) - 459.67) F, °F, Fahrenheit
+
+  - name: Quantity
+    si_unit: mol, mole, moles
+    metric_prefixes:
+      - patterns: %pmol, %Pmole, %Pmoles
+
+  - name: LuminousIntensity
+    si_unit: cd, candela, candelas
+    metric_prefixes:
+      - patterns: %pcd, %Pcandela, %Pcandelas
+
+  - name: Angle
+    si_unit: rad, radian, radians
+    metric_prefixes:
+      - patterns: %prad, %Pradian, %Pradians
+
+  - name: SolidAngle
+    si_unit: sr, steradian, steradians
+    metric_prefixes:
+      - patterns: %psr, %Psteradian, %Psteradians
+
+derived_units:
+  - name: Acceleration
+    base_unit_factors: Length / Time / Time
+
+  - name: Area
+    base_unit_factors: Length * Length
+
+  - name: Energy
+    base_unit_factors: Mass * Length * Length / Time / Time
+
+  - name: Force
+    base_unit_factors: Mass * Length / Time / Time
+
+  - name: Pressure
+    base_unit_factors: Mass / Time / Time / Length
+
+  - name: Velocity
+    base_unit_factors: Length / Time
+
+  - name: Volume
+    base_unit_factors: Length * Length * Length
