@@ -20,9 +20,8 @@ class UnitOfMeasure implements UnitOfMeasureInterface
      * other words:
      * 'Value in the native unit of measure' = 'Value in this unit of measure' * toNativeUnitFactor
      *
-     * @param string $name               This unit of measure's canonical name
-     * @param float  $toNativeUnitFactor The factor to scale the unit by where factor * base unit = this unit
-     *
+     * @param  string $name               This unit of measure's canonical name
+     * @param  float  $toNativeUnitFactor The factor to scale the unit by where factor * base unit = this unit
      * @return self
      */
     public static function linearUnitFactory($name, $toNativeUnitFactor)
@@ -42,8 +41,7 @@ class UnitOfMeasure implements UnitOfMeasureInterface
      * This is a special case of the linear unit factory above, for use in generating the native unit of measure
      * for a given physical quantity.  By definition, the conversion factor is 1.
      *
-     * @param string $name This unit of measure's canonical name
-     *
+     * @param  string $name This unit of measure's canonical name
      * @return self
      */
     public static function nativeUnitFactory($name)
@@ -53,16 +51,13 @@ class UnitOfMeasure implements UnitOfMeasureInterface
 
     /**
      * The canonical name for this unit of measure.
-     *
-     * Typically this is the official way the unit is abbreviated.
-     *
+     * Typically this is the SI abbreviation for this unit.
      * @var string
      */
     protected $name;
 
     /**
      * A collection of alias names that map to this unit of measure
-     *
      * @var string[]
      */
     protected $aliases = [];
@@ -70,7 +65,6 @@ class UnitOfMeasure implements UnitOfMeasureInterface
     /**
      * A callable that can convert a value in this quantity's
      * native unit to this unit of measure.
-     *
      * @var callable
      */
     protected $fromNativeUnit;
@@ -78,18 +72,15 @@ class UnitOfMeasure implements UnitOfMeasureInterface
     /**
      * A callable that can convert a value in this unit of measure
      * to a value in the native unit of the physical quantity.
-     *
      * @var callable
      */
     protected $toNativeUnit;
 
     /**
      * Configure this object's mandatory properties.
-     *
-     * @param string   $name           This unit of measure's canonical name
-     * @param callable $fromNativeUnit The callable that can cast values into this unit of measure from the native unit of measure
-     * @param callable $toNativeUnit   The callable that can cast values into the native unit from this unit of measure
-     *
+     * @param  string   $name           This unit of measure's canonical name
+     * @param  callable $fromNativeUnit The callable that can cast values into this unit of measure from the native unit of measure
+     * @param  callable $toNativeUnit   The callable that can cast values into the native unit from this unit of measure
      * @throws Exception\NonStringUnitName
      */
     public function __construct($name, callable $fromNativeUnit, callable $toNativeUnit)
@@ -103,17 +94,11 @@ class UnitOfMeasure implements UnitOfMeasureInterface
         $this->toNativeUnit   = $toNativeUnit;
     }
 
-    /**
-     * @see \PhpUnitsOfMeasure\UnitOfMeasureInterface::getName
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * @see \PhpUnitsOfMeasure\UnitOfMeasureInterface::addAlias
-     */
     public function addAlias($alias)
     {
         if (!is_string($alias)) {
@@ -123,17 +108,11 @@ class UnitOfMeasure implements UnitOfMeasureInterface
         $this->aliases[] = $alias;
     }
 
-    /**
-     * @see \PhpUnitsOfMeasure\UnitOfMeasureInterface::getAliases
-     */
     public function getAliases()
     {
         return $this->aliases;
     }
 
-    /**
-     * @see \PhpUnitsOfMeasure\UnitOfMeasureInterface::isAliasOf
-     */
     public function isAliasOf($unit)
     {
         if (!is_string($unit)) {
@@ -143,9 +122,6 @@ class UnitOfMeasure implements UnitOfMeasureInterface
         return in_array($unit, $this->aliases);
     }
 
-    /**
-     * @see \PhpUnitsOfMeasure\UnitOfMeasureInterface::convertValueFromNativeUnitOfMeasure
-     */
     public function convertValueFromNativeUnitOfMeasure($value)
     {
         if (!is_numeric($value)) {
@@ -156,9 +132,6 @@ class UnitOfMeasure implements UnitOfMeasureInterface
         return $callable($value);
     }
 
-    /**
-     * @see \PhpUnitsOfMeasure\UnitOfMeasureInterface::convertValueToNativeUnitOfMeasure
-     */
     public function convertValueToNativeUnitOfMeasure($value)
     {
         if (!is_numeric($value)) {

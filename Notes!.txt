@@ -1,0 +1,31 @@
+unit of measure Notes!
+Structure
+ - Base physical quantity classes (Length, mass, etc)
+    - Each one contains a static set of units of measure objects, to define the units of that quantity
+
+- Derived quantity classes (Area, unknown collections of quantites, etc)
+    - Are compounded together
+
+
+Physical Quantity Class
+- properties
+    - Knows the base units it's class is derived from.  If a base unit, this list is just itself.
+    - knows it's original instantiation value (ie, 12)
+    - knows its original instantiation unit (ie, "meters", or "m / s", or "watts", or whatever. no on-instantiation validation)
+    -
+- methods
+    - to unit
+        -
+    - to string
+       -
+    - Add
+        - Ensure the reduced component sets are equivalent between the lhs and rhs.
+        - If the original unit is unknown, throw an error
+        - Convert each component
+    - subtract - same as add, except with a minus sign.
+    - multiply - multiply out the component quantities, and create a new object
+    - divide
+
+Derived quantity factory
+  - has a registered set of all the derived quantities
+  - knows how to take a set of numerators and a set of denominators and generate a new physical quantity of the appropriate type

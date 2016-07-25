@@ -9,7 +9,7 @@ use PhpUnitsOfMeasure\DerivedUnitOfMeasure;
  * This is a special case of AbstractDerivedPhysicalQuantity, and
  * represents derived (ie, composite) physical quantities who's
  * component quantites were not found to match a known AbstractDerivedPhysicalQuantity
- * class.  As such, objects of this derived quantity type are looser in their
+ * class.  Because of this, objects of this derived quantity type are looser in their
  * unit requirements.
  */
 class UnknownDerivedPhysicalQuantity extends AbstractDerivedPhysicalQuantity
