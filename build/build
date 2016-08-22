@@ -1,0 +1,105 @@
+#!/usr/bin/env php
+<?php
+
+define('PROJECT_ROOT', realpath(dirname(dirname(__FILE__))));
+define('GENERATED_CLASS_DIR', PROJECT_ROOT.'/source/PhysicalQuantity');
+define('CONFIG_YAML_PATH', PROJECT_ROOT.'/unitsofmeasure.yml');
+
+require PROJECT_ROOT.'/vendor/autoload.php';
+
+use Symfony\Component\Yaml\Yaml;
+
+$unit_config = load_unit_config(CONFIG_YAML_PATH);
+
+clear_generated_file_directory(GENERATED_CLASS_DIR);
+
+render_class_template($unit_config['base_units'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
+
+print "Done.\n";
+
+
+function load_unit_config($file_path) {
+    return Yaml::parse(file_get_contents($file_path));
+}
+
+function clear_generated_file_directory($path) {
+    foreach(array_diff(scandir($path), ['.', '..']) as $file) {
+        unlink($path.DIRECTORY_SEPARATOR.$file);
+    }
+}
+
+function render_class_template($base_units, $template_file_path) {
+    foreach($base_units as $data) {
+        $data = normalize_unit_data($data);
+        print_r($data);
+        $file_name = GENERATED_CLASS_DIR.'/'.$data['name'].'.php';
+
+        ob_start();
+        require $template_file_path;
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        file_put_contents($file_name, "<?php\n".$content);
+    }
+}
+
+function normalize_unit_data($data) {
+    $data = normalize_unit_for_missing_metric_prefixes($data);
+    $data = parse_conversion_factors($data);
+    return $data;
+}
+
+function normalize_unit_for_missing_metric_prefixes($data) {
+    if (array_key_exists('metric_prefixes', $data) && !array_key_exists('si_unit_scaling_factor', $data['metric_prefixes'])) {
+        $data['metric_prefixes']['si_unit_scaling_factor'] = 1;
+    }
+    return $data;
+}
+
+function parse_conversion_factors($data) {
+    if (!array_key_exists('conversion_factors', $data)) {
+        $data['conversion_factors'] = [];
+        $data['interpreted_conversion_factors'] = [];
+        return $data;
+    }
+
+    $data['interpreted_conversion_factors'] = [];
+    foreach ($data['conversion_factors'] as $index => $conversion_factor) {
+        // First, we'll split on commas, to get the "first chunk"
+        // separate from the list of unit synonyms
+        $synonyms = split(',', $conversion_factor);
+        $front = array_shift($synonyms);
+
+        // If the first chunk contains parentheses, we'll treat the outermost
+        // set as a block, and split right after the last close parenthesis.
+        if (strpos($front, '(') !== false)  {
+            $last_close = strrpos($front, ')');
+            $factor = substr($front, 0, $last_close+1);
+            $first_synonym = substr($front, $last_close+1);
+            array_unshift($synonyms, $first_synonym);
+
+        } else {
+            // Otherwise, just split on the first space to separate the factor
+            // from the units
+            list($factor, $first_synonym) = split(" ", $front, 2);
+            array_unshift($synonyms, $first_synonym);
+        }
+
+        // if the factor contains the special variable "x" then it should be
+        // considered a formula.  Otherwise it's just a static math constant.
+        $converted_factor = ['units' => array_map('trim', $synonyms)];
+        if (strpos($factor, 'x') !== false) {
+            $factor = str_replace('x', '$x', $factor);
+            $converted_factor['formula'] = trim($factor);
+        } else {
+            $converted_factor['constant'] = trim($factor);
+        }
+
+        $data['interpreted_conversion_factors'][$index] = $converted_factor;
+    }
+
+    return $data;
+}
+
+
+
