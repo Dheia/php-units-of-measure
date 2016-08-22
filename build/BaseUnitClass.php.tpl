@@ -12,7 +12,7 @@ if (!defined('TEMPLATE_FUNCTIONS_LOADED')) {
 <?php   }
     }
 
-    function printSiUnits($unit_definition) {
+    function printSiPrefixesHandler($unit_definition) {
         if (array_key_exists('metric_prefixes', $unit_definition)) {?>
         static::addMissingSIPrefixedUnits(
             $newUnit,
@@ -73,13 +73,13 @@ class <?=$data['name']?> extends AbstractPhysicalQuantity
         $newUnit = UnitOfMeasure::nativeUnitFactory('<?=$data['si_unit']['names'][0]?>');
 <?php printAddAliases($data['si_unit']);?>
         static::addUnit($newUnit);
-<?php printSiUnits($data['si_unit']);?>
+<?php printSiPrefixesHandler($data['si_unit']);?>
 
-<?php foreach ($data['conversion_factors'] as $factor) {
+<?php foreach ($data['additional_units'] as $factor) {
     printAdditionalUnitFactory($factor);
     printAddAliases($factor); ?>
         static::addUnit($newUnit);
-<?php printSiUnits($factor);?>
+<?php printSiPrefixesHandler($factor);?>
 
 <?php } ?>
     }

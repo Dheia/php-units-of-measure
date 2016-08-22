@@ -9,10 +9,10 @@ require PROJECT_ROOT.'/vendor/autoload.php';
 
 use Symfony\Component\Yaml\Yaml;
 
-$unit_config = load_unit_config(CONFIG_YAML_PATH);
+$unit_config = load_units_of_measure_definition(CONFIG_YAML_PATH);
 
 print "Clearing target directory ".GENERATED_CLASS_DIR."....\n";
-clear_generated_file_directory(GENERATED_CLASS_DIR);
+clear_generated_class_directory(GENERATED_CLASS_DIR);
 
 print "Rendering base quantities...\n";
 render_class_template($unit_config['base_quantities'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
@@ -23,11 +23,11 @@ render_class_template($unit_config['derived_quantities'], PROJECT_ROOT.'/build/B
 print "Done.\n";
 
 
-function load_unit_config($file_path) {
+function load_units_of_measure_definition($file_path) {
     return Yaml::parse(file_get_contents($file_path));
 }
 
-function clear_generated_file_directory($path) {
+function clear_generated_class_directory($path) {
     foreach(array_diff(scandir($path), ['.', '..']) as $file) {
         unlink($path.DIRECTORY_SEPARATOR.$file);
     }
@@ -36,7 +36,7 @@ function clear_generated_file_directory($path) {
 function render_class_template($base_units, $template_file_path) {
     foreach($base_units as $data) {
         $data['si_unit'] = normalize_metric_prefixes($data['si_unit']);
-        $data = normalize_conversion_factors($data);
+        $data = normalize_additional_units($data);
 
         $data = flag_for_needs_metric_prefixes($data);
 
@@ -59,12 +59,12 @@ function normalize_metric_prefixes($data) {
     return $data;
 }
 
-function normalize_conversion_factors($data) {
-    if (!array_key_exists('conversion_factors', $data)) {
-        $data['conversion_factors'] = [];
+function normalize_additional_units($data) {
+    if (!array_key_exists('additional_units', $data)) {
+        $data['additional_units'] = [];
     }
 
-    foreach ($data['conversion_factors'] as $index => $conversion_factor) {
+    foreach ($data['additional_units'] as $index => $conversion_factor) {
         // If the definition is in string form, we need to parse it
         if (is_string($conversion_factor)) {
 
@@ -105,7 +105,7 @@ function normalize_conversion_factors($data) {
 
         $conversion_factor = normalize_metric_prefixes($conversion_factor);
 
-        $data['conversion_factors'][$index] = $conversion_factor;
+        $data['additional_units'][$index] = $conversion_factor;
     }
 
     return $data;
@@ -120,7 +120,7 @@ function flag_for_needs_metric_prefixes($data) {
     }
 
     // if any of the unit conversions have metric prefixes
-    foreach ($data['conversion_factors'] as $conversion_factor) {
+    foreach ($data['additional_units'] as $conversion_factor) {
         if (array_key_exists('metric_prefixes', $conversion_factor)) {
             $data['has_metric_prefixes'] = true;
             break;
