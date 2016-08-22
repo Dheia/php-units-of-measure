@@ -1,7 +1,7 @@
 <?php
 // If this is the first time this template has been loaded, define some functions
 if (!defined('TEMPLATE_FUNCTIONS_LOADED')) {
-    define(TEMPLATE_FUNCTIONS_LOADED, true);
+    define('TEMPLATE_FUNCTIONS_LOADED', true);
 
     function printAddAliases($unit_definition) {
         foreach ($unit_definition['names'] as $index => $unit) {
@@ -31,23 +31,26 @@ if (!defined('TEMPLATE_FUNCTIONS_LOADED')) {
     }
 
     function printAdditionalUnitFactory($unit_definition) {
-        if (array_key_exists('constant', $unit_definition)) { ?>
-        $newUnit = UnitOfMeasure::linearUnitFactory('<?=$unit_definition['names'][0]?>', <?=$unit_definition['constant']?>);
+        if (array_key_exists('conversion_factor', $unit_definition)) { ?>
+        $newUnit = UnitOfMeasure::linearUnitFactory('<?=$unit_definition['names'][0]?>', <?=$unit_definition['conversion_factor']?>);
 <?php   } else { ?>
         $newUnit = new UnitOfMeasure(
             '<?=$unit_definition['names'][0]?>',
             function ($x) {
-                return <?=$unit_definition['formula']?>;
+                return <?=$unit_definition['from_si_unit_formula']?>;
             },
             function ($x) {
-                return "something has to happen here";
+                return <?=$unit_definition['to_si_unit_formula']?>;
             }
         );
 <?php   }
     }
 }
 
-// --- Here starts the generated class file template
+// ----
+// --- Here starts the generated class file template (note that the leading
+// --- php tag will be added when the file is written.
+// ----
 ?>
 namespace PhpUnitsOfMeasure\PhysicalQuantity;
 
@@ -72,12 +75,12 @@ class <?=$data['name']?> extends AbstractPhysicalQuantity
         static::addUnit($newUnit);
 <?php printSiUnits($data['si_unit']);?>
 
-<?php foreach ($data['interpreted_conversion_factors'] as $factor) {
+<?php foreach ($data['conversion_factors'] as $factor) {
     printAdditionalUnitFactory($factor);
     printAddAliases($factor); ?>
         static::addUnit($newUnit);
-
 <?php printSiUnits($factor);?>
+
 <?php } ?>
     }
 }

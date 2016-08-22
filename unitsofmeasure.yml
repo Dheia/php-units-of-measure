@@ -9,11 +9,15 @@ base_units:
       metric_prefixes:
         patterns: [%prad, %Pradian, %Pradians]
     conversion_factors:
-      # - names: [deg, °, degree, degrees]
-      #   conversion_factor: (M_PI / 180)
-      - (M_PI / 180) deg, °, degree, degrees
+      - names: [deg, °, degree, degrees]
+        metric_prefixes:
+          patterns: [%pdeg, %Pdegree, %Pdegrees]
+        conversion_factor: (M_PI / 180)
       - (M_PI / 180 / 60) arcmin, ′, arcminute, arcminutes, amin, am, MOA
-      - (M_PI / 180 / 3600) arcsec, ″, arcsecond, arcseconds, asec, as
+      - names: [arcsec, ″, arcsecond, arcseconds, asec, as]
+        metric_prefixes:
+          patterns: [%Parcsec, %Parcsecond, %Parcseconds, %pasec, %pas]
+        conversion_factor: (M_PI / 180 / 3600)
 
   - name: ElectricCurrent
     si_unit:
@@ -71,13 +75,26 @@ base_units:
       metric_prefixes:
         patterns: [%pK, %Pkelvin]
     conversion_factors:
-      - (x - 273.15) °C, C, celsius
-      - ((x * 9 / 5) - 459.67) °F, F, fahrenheit
-      - 5/9 °R, R, rankine
-      - ((373.15 - x) * 3/2) °De, De, delisle
-      - ((x - 273.15) * 33/100) °N, N, newton
-      - ((x - 273.15) * 4/5) °Ré, °Re, Ré, Re, réaumur, reaumur
-      - ((x - 273.15) * (21/40) + 7.5) °Rø, °Ro, Rø, Ro, rømer, romer
+      - names: [°C, C, celsius]
+        from_si_unit_formula: (x - 273.15)
+        to_si_unit_formula: (x + 273.15)
+      - names: [°F, F, fahrenheit]
+        from_si_unit_formula: ((x * 9 / 5) - 459.67)
+        to_si_unit_formula: ((x + 459.67) * 5 / 9)
+      - names: [°R, R, rankine]
+        conversion_factor: 5/9
+      - names: [°De, De, delisle]
+        from_si_unit_formula: ((373.15 - x) * 3/2)
+        to_si_unit_formula: (373.15 - x * 2/3)
+      - names: [°N, N, newton]
+        from_si_unit_formula: ((x - 273.15) * 33/100)
+        to_si_unit_formula: (x * 100/33 + 273.15)
+      - names: [°Ré, °Re, Ré, Re, réaumur, reaumur]
+        from_si_unit_formula: ((x - 273.15) * 4/5)
+        to_si_unit_formula: (x * 5/4 + 273.15)
+      - names: [°Rø, °Ro, Rø, Ro, rømer, romer]
+        from_si_unit_formula: ((x - 273.15) * (21/40) + 7.5)
+        to_si_unit_formula: ((x - 7.5) * 40/21 + 273.15)
 
   - name: Time
     si_unit:
@@ -126,7 +143,10 @@ derived_units:
       metric_prefixes:
         patterns: [%pJ, %Pjoule, %Pjoules]
     conversion_factors:
-      - 3600 Wh, watt hour, watt hours
+      - names: [Wh, watt hour, watt hours]
+        metric_prefixes:
+          patterns: [%pWh, %Pwatt hour, %Pwatt hours]
+        conversion_factor: 3600
 
 #   - name: Force
 #     base_unit_factors: Mass * Length / Time / Time
@@ -139,7 +159,10 @@ derived_units:
         patterns: [%pPa, %Ppascal]
     conversion_factors:
       - 101325 atm, atmosphere, atmospheres
-      - 1e5 bar
+      - names: [bar]
+        metric_prefixes:
+          patterns: [%pbar]
+        conversion_factor: 1e5
       - 3.386389e3 inHg, inches of mercury
       - 133.3224 mmHg, millimeters of mercury, millimetres of mercury, torr
       - 6.894757e3 psi, pounds per square inch
