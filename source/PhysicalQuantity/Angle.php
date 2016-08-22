@@ -27,7 +27,7 @@ class Angle extends AbstractPhysicalQuantity
             ]
         );
 
-        $newUnit = UnitOfMeasure::linearUnitFactory('deg', M_PI / 180);
+        $newUnit = UnitOfMeasure::linearUnitFactory('deg', (M_PI / 180));
         $newUnit->addAlias('°');
         $newUnit->addAlias('degree');
         $newUnit->addAlias('degrees');
@@ -42,7 +42,7 @@ class Angle extends AbstractPhysicalQuantity
             ]
         );
 
-        $newUnit = UnitOfMeasure::linearUnitFactory('arcmin', M_PI / 180 / 60);
+        $newUnit = UnitOfMeasure::linearUnitFactory('arcmin', (M_PI / 180 / 60));
         $newUnit->addAlias('′');
         $newUnit->addAlias('arcminute');
         $newUnit->addAlias('arcminutes');
@@ -51,7 +51,7 @@ class Angle extends AbstractPhysicalQuantity
         $newUnit->addAlias('MOA');
         static::addUnit($newUnit);
 
-        $newUnit = UnitOfMeasure::linearUnitFactory('arcsec', M_PI / 180 / 3600);
+        $newUnit = UnitOfMeasure::linearUnitFactory('arcsec', (M_PI / 180 / 3600));
         $newUnit->addAlias('″');
         $newUnit->addAlias('arcsecond');
         $newUnit->addAlias('arcseconds');
@@ -69,5 +69,6 @@ class Angle extends AbstractPhysicalQuantity
                 '%pas',
             ]
         );
+
     }
 }

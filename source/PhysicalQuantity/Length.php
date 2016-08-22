@@ -27,7 +27,7 @@ class Length extends AbstractPhysicalQuantity
                 '%Pmeter',
                 '%Pmeters',
                 '%Pmetre',
-                '%Pmetres'
+                '%Pmetres',
             ]
         );
 
@@ -66,5 +66,6 @@ class Length extends AbstractPhysicalQuantity
         $newUnit->addAlias('astronomical unit');
         $newUnit->addAlias('astronomical units');
         static::addUnit($newUnit);
+
     }
 }

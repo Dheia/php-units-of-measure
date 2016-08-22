@@ -17,7 +17,6 @@ class SolidAngle extends AbstractPhysicalQuantity
         $newUnit->addAlias('steradian');
         $newUnit->addAlias('steradians');
         static::addUnit($newUnit);
-
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
@@ -27,5 +26,6 @@ class SolidAngle extends AbstractPhysicalQuantity
                 '%Psteradians',
             ]
         );
+
     }
 }

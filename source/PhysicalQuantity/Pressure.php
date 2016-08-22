@@ -30,12 +30,14 @@ class Pressure extends AbstractPhysicalQuantity
         $newUnit->addAlias('atmospheres');
         static::addUnit($newUnit);
 
-        $newUnit = UnitOfMeasure::linearUnitFactory('bar', 1e5);
+        $newUnit = UnitOfMeasure::linearUnitFactory('bar', 100000);
         static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pbar'
+            '%pbar',
+            [
+            ]
         );
 
         $newUnit = UnitOfMeasure::linearUnitFactory('inHg', 3.386389e3);
@@ -51,5 +53,6 @@ class Pressure extends AbstractPhysicalQuantity
         $newUnit = UnitOfMeasure::linearUnitFactory('psi', 6.894757e3);
         $newUnit->addAlias('pounds per square inch');
         static::addUnit($newUnit);
+
     }
 }

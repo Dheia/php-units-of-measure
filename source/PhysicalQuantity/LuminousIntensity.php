@@ -24,5 +24,6 @@ class LuminousIntensity extends AbstractPhysicalQuantity
                 '%Pcandela',
             ]
         );
+
     }
 }

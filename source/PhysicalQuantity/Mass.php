@@ -19,7 +19,7 @@ class Mass extends AbstractPhysicalQuantity
         static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
             $newUnit,
-            1e-3,
+            0.001,
             '%pg',
             [
                 '%Pgram',
@@ -40,14 +40,15 @@ class Mass extends AbstractPhysicalQuantity
         $newUnit->addAlias('pounds');
         static::addUnit($newUnit);
 
-        $newUnit = UnitOfMeasure::linearUnitFactory('oz', 4.5359237e-1 / 16);
+        $newUnit = UnitOfMeasure::linearUnitFactory('oz', (4.5359237e-1 / 16));
         $newUnit->addAlias('ounce');
         $newUnit->addAlias('ounces');
         static::addUnit($newUnit);
 
-        $newUnit = UnitOfMeasure::linearUnitFactory('st', 4.5359237e-1 * 14);
+        $newUnit = UnitOfMeasure::linearUnitFactory('st', (4.5359237e-1 * 14));
         $newUnit->addAlias('stone');
         $newUnit->addAlias('stones');
         static::addUnit($newUnit);
+
     }
 }

@@ -17,7 +17,6 @@ class Quantity extends AbstractPhysicalQuantity
         $newUnit->addAlias('mole');
         $newUnit->addAlias('moles');
         static::addUnit($newUnit);
-
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
@@ -27,5 +26,6 @@ class Quantity extends AbstractPhysicalQuantity
                 '%Pmoles',
             ]
         );
+
     }
 }

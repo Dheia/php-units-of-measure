@@ -111,7 +111,6 @@ class Volume extends AbstractPhysicalQuantity
         static::addUnit($newUnit);
 
         $newUnit = UnitOfMeasure::linearUnitFactory('cup', 2.365882e-4);
-        $newUnit->addAlias('cup');
         $newUnit->addAlias('cups');
         static::addUnit($newUnit);
 
@@ -151,5 +150,6 @@ class Volume extends AbstractPhysicalQuantity
         $newUnit->addAlias('pints');
         $newUnit->addAlias('liq pt');
         static::addUnit($newUnit);
+
     }
 }

@@ -27,7 +27,7 @@ class Time extends AbstractPhysicalQuantity
                 '%Psec',
                 '%Psecs',
                 '%Psecond',
-                '%Pseconds'
+                '%Pseconds',
             ]
         );
 
@@ -80,5 +80,6 @@ class Time extends AbstractPhysicalQuantity
         $newUnit->addAlias('julian year');
         $newUnit->addAlias('julian years');
         static::addUnit($newUnit);
+
     }
 }

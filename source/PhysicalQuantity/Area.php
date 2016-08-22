@@ -111,5 +111,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('acre');
         $newUnit->addAlias('acres');
         static::addUnit($newUnit);
+
     }
 }

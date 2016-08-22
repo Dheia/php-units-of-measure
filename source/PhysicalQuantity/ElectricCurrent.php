@@ -27,8 +27,9 @@ class ElectricCurrent extends AbstractPhysicalQuantity
                 '%Pamp',
                 '%Pamps',
                 '%Pampere',
-                '%Pamperes'
+                '%Pamperes',
             ]
         );
+
     }
 }

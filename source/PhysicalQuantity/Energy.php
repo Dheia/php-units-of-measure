@@ -40,5 +40,6 @@ class Energy extends AbstractPhysicalQuantity
                 '%Pwatt hours',
             ]
         );
+
     }
 }

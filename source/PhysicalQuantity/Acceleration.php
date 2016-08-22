@@ -17,5 +17,6 @@ class Acceleration extends AbstractPhysicalQuantity
         $newUnit->addAlias('metre per second squared');
         $newUnit->addAlias('metres per second squared');
         static::addUnit($newUnit);
+
     }
 }
