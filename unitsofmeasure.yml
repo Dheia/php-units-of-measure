@@ -2,7 +2,7 @@
 ###
 #
 ###
-base_units:
+base_quantities:
   - name: Angle
     si_unit:
       names: [rad, radian, radians]
@@ -112,7 +112,7 @@ base_units:
       - 31556952000 millennium, millennia
       - 31557600 jyr, julian year, julian years
 
-derived_units:
+derived_quantities:
   - name: Acceleration
     base_unit_factors: Length / Time / Time
     si_unit:

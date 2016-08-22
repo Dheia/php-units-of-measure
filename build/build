@@ -11,11 +11,14 @@ use Symfony\Component\Yaml\Yaml;
 
 $unit_config = load_unit_config(CONFIG_YAML_PATH);
 
+print "Clearing target directory ".GENERATED_CLASS_DIR."....\n";
 clear_generated_file_directory(GENERATED_CLASS_DIR);
 
-render_class_template($unit_config['base_units'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
+print "Rendering base quantities...\n";
+render_class_template($unit_config['base_quantities'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
 
-render_class_template($unit_config['derived_units'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
+print "Rendering derived quantities...\n";
+render_class_template($unit_config['derived_quantities'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
 
 print "Done.\n";
 
@@ -38,6 +41,7 @@ function render_class_template($base_units, $template_file_path) {
         $data = flag_for_needs_metric_prefixes($data);
 
         $file_name = GENERATED_CLASS_DIR.'/'.$data['name'].'.php';
+        print "    - ".$file_name."\n";
 
         ob_start();
         require $template_file_path;
