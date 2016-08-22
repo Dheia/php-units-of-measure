@@ -4,23 +4,28 @@
 ###
 base_units:
   - name: Angle
-    si_unit: [rad, radian, radians]
-    metric_prefixes:
-      patterns: [%prad, %Pradian, %Pradians]
+    si_unit:
+      names: [rad, radian, radians]
+      metric_prefixes:
+        patterns: [%prad, %Pradian, %Pradians]
     conversion_factors:
+      # - names: [deg, °, degree, degrees]
+      #   conversion_factor: (M_PI / 180)
       - (M_PI / 180) deg, °, degree, degrees
       - (M_PI / 180 / 60) arcmin, ′, arcminute, arcminutes, amin, am, MOA
       - (M_PI / 180 / 3600) arcsec, ″, arcsecond, arcseconds, asec, as
 
   - name: ElectricCurrent
-    si_unit: [A, amp, amps, ampere, amperes]
-    metric_prefixes:
-      patterns: [%pA, %Pamp, %Pamps, %Pampere, %Pamperes]
+    si_unit:
+      names: [A, amp, amps, ampere, amperes]
+      metric_prefixes:
+        patterns: [%pA, %Pamp, %Pamps, %Pampere, %Pamperes]
 
   - name: Length
-    si_unit: [m, meter, meters, metre, metres]
-    metric_prefixes:
-      patterns: [%pm, %Pmeter, %Pmeters, %Pmetre, %Pmetres]
+    si_unit:
+      names: [m, meter, meters, metre, metres]
+      metric_prefixes:
+        patterns: [%pm, %Pmeter, %Pmeters, %Pmetre, %Pmetres]
     conversion_factors:
       - 0.3048 ft, foot, feet
       - 0.0254 in, inch, inches
@@ -31,15 +36,17 @@ base_units:
       - 149597870700 AU, au, astronomical unit, astronomical units
 
   - name: LuminousIntensity
-    si_unit: [cd, candela]
-    metric_prefixes:
-      patterns: [%pcd, %Pcandela]
+    si_unit:
+      names: [cd, candela]
+      metric_prefixes:
+        patterns: [%pcd, %Pcandela]
 
   - name: Mass
-    si_unit: [kg, kilogram, kilograms]
-    metric_prefixes:
-      patterns: [%pg, %Pgram, %Pgrams]
-      si_unit_scaling_factor: 1e-3
+    si_unit:
+      names: [kg, kilogram, kilograms]
+      metric_prefixes:
+        patterns: [%pg, %Pgram, %Pgrams]
+        si_unit_scaling_factor: 1e-3
     conversion_factors:
       - 1e3 t, ton, tons, tonne, tonnes
       - 4.5359237e-1 lb, lbs, pound, pounds
@@ -47,19 +54,22 @@ base_units:
       - (4.5359237e-1 * 14) st, stone, stones
 
   - name: Quantity
-    si_unit: [mol, mole, moles]
-    metric_prefixes:
-      patterns: [%pmol, %Pmole, %Pmoles]
+    si_unit:
+      names: [mol, mole, moles]
+      metric_prefixes:
+        patterns: [%pmol, %Pmole, %Pmoles]
 
   - name: SolidAngle
-    si_unit: [sr, steradian, steradians]
-    metric_prefixes:
-      patterns: [%psr, %Psteradian, %Psteradians]
+    si_unit:
+      names: [sr, steradian, steradians]
+      metric_prefixes:
+        patterns: [%psr, %Psteradian, %Psteradians]
 
   - name: Temperature
-    si_unit: [K, °K, kelvin]
-    metric_prefixes:
-      patterns: [%pK, %Pkelvin]
+    si_unit:
+      names: [K, °K, kelvin]
+      metric_prefixes:
+        patterns: [%pK, %Pkelvin]
     conversion_factors:
       - (x - 273.15) °C, C, celsius
       - ((x * 9 / 5) - 459.67) °F, F, fahrenheit
@@ -70,9 +80,10 @@ base_units:
       - ((x - 273.15) * (21/40) + 7.5) °Rø, °Ro, Rø, Ro, rømer, romer
 
   - name: Time
-    si_unit: [s, sec, secs, second, seconds]
-    metric_prefixes:
-      patterns: [%ps, %Psec, %Psecs, %Psecond, %Pseconds]
+    si_unit:
+      names: [s, sec, secs, second, seconds]
+      metric_prefixes:
+        patterns: [%ps, %Psec, %Psecs, %Psecond, %Pseconds]
     conversion_factors:
       - 60 m, min, mins, minute, minutes
       - 3600 h, hr, hrs, hour, hours
@@ -86,12 +97,14 @@ base_units:
 
 derived_units:
   - name: Acceleration
-    si_unit: [m/s^2, m/s², meter per second squared, meters per second squared, metre per second squared, metres per second squared]
     base_unit_factors: Length / Time / Time
+    si_unit:
+      names: [m/s^2, m/s², meter per second squared, meters per second squared, metre per second squared, metres per second squared]
 
   - name: Area
-    si_unit: [m^2, m², meter squared, square meter, square meters, meters squared, metre squared, metres squared]
     base_unit_factors: Length * Length
+    si_unit:
+      names: [m^2, m², meter squared, square meter, square meters, meters squared, metre squared, metres squared]
     conversion_factors:
       - 1e-6 mm^2, mm², millimeter squared, square millimeter, square millimeters, millimeters squared, millimetre squared, millimetres squared
       - 1e-4 cm^2, cm², centimeter squared, square centimeter, square centimeters, centimeters squared, centimetre squared, centimetres squared
@@ -107,10 +120,11 @@ derived_units:
       - 4046.8564224 ac, acre, acres
 
   - name: Energy
-    si_unit: [J, joule, joules]
-    metric_prefixes:
-      patterns: [%pJ, %Pjoule, %Pjoules]
     base_unit_factors: Mass * Length * Length / Time / Time
+    si_unit:
+      names: [J, joule, joules]
+      metric_prefixes:
+        patterns: [%pJ, %Pjoule, %Pjoules]
     conversion_factors:
       - 3600 Wh, watt hour, watt hours
 
@@ -118,10 +132,11 @@ derived_units:
 #     base_unit_factors: Mass * Length / Time / Time
 
   - name: Pressure
-    si_unit: [Pa, pascal]
-    metric_prefixes:
-      patterns: [%pPa, %Ppascal]
     base_unit_factors: Mass / Time / Time / Length
+    si_unit:
+      names: [Pa, pascal]
+      metric_prefixes:
+        patterns: [%pPa, %Ppascal]
     conversion_factors:
       - 101325 atm, atmosphere, atmospheres
       - 1e5 bar
@@ -130,8 +145,9 @@ derived_units:
       - 6.894757e3 psi, pounds per square inch
 
   - name: Velocity
-    si_unit: [m/s, meters/sec, meters per second, meter per second, metres per second, metre per second]
     base_unit_factors: Length / Time
+    si_unit:
+      names: [m/s, meters/sec, meters per second, meter per second, metres per second, metre per second]
     conversion_factors:
       - 0.277778 km/h, km/hour, kilometer per hour, kilometers per hour, kilometre per hour, kilometres per hour
       - 0.3048 ft/s, feet/sec, feet per second
@@ -139,8 +155,9 @@ derived_units:
       - 0.514444 knot, knots
 
   - name: Volume
-    si_unit: [m^3, m³, cubic meter, cubic meters, cubic metre, cubic metres]
     base_unit_factors: Length * Length * Length
+    si_unit:
+      names: [m^3, m³, cubic meter, cubic meters, cubic metre, cubic metres]
     conversion_factors:
       - 1e-9 mm^3, mm³, cubic millimeter, cubic millimeters, cubic millimetre, cubic millimetres
       - 1e-6 cm^3, cm³, cubic centimeter, cubic centimeters, cubic centimetre, cubic centimetres

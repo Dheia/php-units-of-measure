@@ -32,8 +32,12 @@ function clear_generated_file_directory($path) {
 
 function render_class_template($base_units, $template_file_path) {
     foreach($base_units as $data) {
-        $data = normalize_unit_data($data);
+        $data = flag_for_needs_metric_prefixes($data);
+        $data['si_unit'] = normalize_metric_prefixes($data['si_unit']);
+        $data = normalize_conversion_factors($data);
+
         print_r($data);
+
         $file_name = GENERATED_CLASS_DIR.'/'.$data['name'].'.php';
 
         ob_start();
@@ -45,20 +49,25 @@ function render_class_template($base_units, $template_file_path) {
     }
 }
 
-function normalize_unit_data($data) {
-    $data = normalize_unit_for_missing_metric_prefixes($data);
-    $data = parse_conversion_factors($data);
+function flag_for_needs_metric_prefixes($data) {
+    $data['has_metric_prefixes'] = false;
+    if (array_key_exists('metric_prefixes', $data['si_unit'])) {
+        $data['has_metric_prefixes'] = true;
+    }
+
+    #TODO if any of the conversion factors need metric units, mark it true as well
+
     return $data;
 }
 
-function normalize_unit_for_missing_metric_prefixes($data) {
+function normalize_metric_prefixes($data) {
     if (array_key_exists('metric_prefixes', $data) && !array_key_exists('si_unit_scaling_factor', $data['metric_prefixes'])) {
         $data['metric_prefixes']['si_unit_scaling_factor'] = 1;
     }
     return $data;
 }
 
-function parse_conversion_factors($data) {
+function normalize_conversion_factors($data) {
     if (!array_key_exists('conversion_factors', $data)) {
         $data['conversion_factors'] = [];
         $data['interpreted_conversion_factors'] = [];
@@ -89,7 +98,7 @@ function parse_conversion_factors($data) {
 
         // if the factor contains the special variable "x" then it should be
         // considered a formula.  Otherwise it's just a static math constant.
-        $converted_factor = ['units' => array_map('trim', $synonyms)];
+        $converted_factor = ['names' => array_map('trim', $synonyms)];
         if (strpos($factor, 'x') !== false) {
             $factor = str_replace('x', '$x', $factor);
             $converted_factor['formula'] = trim($factor);
