@@ -13,16 +13,14 @@ class ElectricCurrent extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Ampere
-        $ampere = UnitOfMeasure::nativeUnitFactory('A');
-        $ampere->addAlias('amp');
-        $ampere->addAlias('amps');
-        $ampere->addAlias('ampere');
-        $ampere->addAlias('amperes');
-        static::addUnit($ampere);
-
+        $newUnit = UnitOfMeasure::nativeUnitFactory('A');
+        $newUnit->addAlias('amp');
+        $newUnit->addAlias('amps');
+        $newUnit->addAlias('ampere');
+        $newUnit->addAlias('amperes');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $ampere,
+            $newUnit,
             1,
             '%pA',
             [

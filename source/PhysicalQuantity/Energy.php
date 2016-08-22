@@ -13,14 +13,12 @@ class Energy extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Joule
-        $joule = UnitOfMeasure::nativeUnitFactory('J');
-        $joule->addAlias('joule');
-        $joule->addAlias('joules');
-        static::addUnit($joule);
-
+        $newUnit = UnitOfMeasure::nativeUnitFactory('J');
+        $newUnit->addAlias('joule');
+        $newUnit->addAlias('joules');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $joule,
+            $newUnit,
             1,
             '%pJ',
             [
@@ -29,14 +27,12 @@ class Energy extends AbstractPhysicalQuantity
             ]
         );
 
-        // Watt hour
-        $wattHour = UnitOfMeasure::linearUnitFactory('Wh', 3600);
-        $wattHour->addAlias('watt hour');
-        $wattHour->addAlias('watt hours');
-        static::addUnit($wattHour);
-
+        $newUnit = UnitOfMeasure::linearUnitFactory('Wh', 3600);
+        $newUnit->addAlias('watt hour');
+        $newUnit->addAlias('watt hours');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $wattHour,
+            $newUnit,
             1,
             '%pWh',
             [

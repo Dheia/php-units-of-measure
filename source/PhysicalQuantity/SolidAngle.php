@@ -13,14 +13,13 @@ class SolidAngle extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Steradians
-        $steradian = UnitOfMeasure::nativeUnitFactory('sr');
-        $steradian->addAlias('steradian');
-        $steradian->addAlias('steradians');
-        static::addUnit($steradian);
+        $newUnit = UnitOfMeasure::nativeUnitFactory('sr');
+        $newUnit->addAlias('steradian');
+        $newUnit->addAlias('steradians');
+        static::addUnit($newUnit);
 
         static::addMissingSIPrefixedUnits(
-            $steradian,
+            $newUnit,
             1,
             '%psr',
             [

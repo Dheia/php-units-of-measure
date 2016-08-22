@@ -13,14 +13,12 @@ class Temperature extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Kelvin
-        $kelvin = UnitOfMeasure::nativeUnitFactory('K');
-        $kelvin->addAlias('°K');
-        $kelvin->addAlias('kelvin');
-        static::addUnit($kelvin);
-
+        $newUnit = UnitOfMeasure::nativeUnitFactory('K');
+        $newUnit->addAlias('°K');
+        $newUnit->addAlias('kelvin');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $kelvin,
+            $newUnit,
             1,
             '%pK',
             [
@@ -28,7 +26,6 @@ class Temperature extends AbstractPhysicalQuantity
             ]
         );
 
-        // Degree Celsius
         $newUnit = new UnitOfMeasure(
             '°C',
             function ($x) {
@@ -42,7 +39,6 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit->addAlias('celsius');
         static::addUnit($newUnit);
 
-        // Degree Fahrenheit
         $newUnit = new UnitOfMeasure(
             '°F',
             function ($x) {
@@ -56,13 +52,11 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit->addAlias('fahrenheit');
         static::addUnit($newUnit);
 
-        // Degree Rankine
         $newUnit = UnitOfMeasure::linearUnitFactory('°R', 5/9);
         $newUnit->addAlias('R');
         $newUnit->addAlias('rankine');
         static::addUnit($newUnit);
 
-        // Degree Delisle
         $newUnit = new UnitOfMeasure(
             '°De',
             function ($x) {
@@ -76,7 +70,6 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit->addAlias('delisle');
         static::addUnit($newUnit);
 
-        // Degree Newton
         $newUnit = new UnitOfMeasure(
             '°N',
             function ($x) {
@@ -90,7 +83,6 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit->addAlias('newton');
         static::addUnit($newUnit);
 
-        // Degree Réaumur
         $newUnit = new UnitOfMeasure(
             '°Ré',
             function ($x) {
@@ -107,7 +99,6 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit->addAlias('reaumur');
         static::addUnit($newUnit);
 
-        // Degree Rømer
         $newUnit = new UnitOfMeasure(
             '°Rø',
             function ($x) {

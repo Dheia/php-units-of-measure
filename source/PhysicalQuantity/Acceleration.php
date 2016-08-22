@@ -10,13 +10,12 @@ class Acceleration extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // meters per second squared
-        $meterpersecondsquared = UnitOfMeasure::nativeUnitFactory('m/s^2');
-        $meterpersecondsquared->addAlias('m/s²');
-        $meterpersecondsquared->addAlias('meter per second squared');
-        $meterpersecondsquared->addAlias('meters per second squared');
-        $meterpersecondsquared->addAlias('metre per second squared');
-        $meterpersecondsquared->addAlias('metres per second squared');
-        static::addUnit($meterpersecondsquared);
+        $newUnit = UnitOfMeasure::nativeUnitFactory('m/s^2');
+        $newUnit->addAlias('m/s²');
+        $newUnit->addAlias('meter per second squared');
+        $newUnit->addAlias('meters per second squared');
+        $newUnit->addAlias('metre per second squared');
+        $newUnit->addAlias('metres per second squared');
+        static::addUnit($newUnit);
     }
 }

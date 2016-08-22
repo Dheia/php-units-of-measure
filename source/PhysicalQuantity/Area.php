@@ -10,18 +10,16 @@ class Area extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Meters squared
-        $metersquared = UnitOfMeasure::nativeUnitFactory('m^2');
-        $metersquared->addAlias('m²');
-        $metersquared->addAlias('meter squared');
-        $metersquared->addAlias('square meter');
-        $metersquared->addAlias('square meters');
-        $metersquared->addAlias('meters squared');
-        $metersquared->addAlias('metre squared');
-        $metersquared->addAlias('metres squared');
-        static::addUnit($metersquared);
+        $newUnit = UnitOfMeasure::nativeUnitFactory('m^2');
+        $newUnit->addAlias('m²');
+        $newUnit->addAlias('meter squared');
+        $newUnit->addAlias('square meter');
+        $newUnit->addAlias('square meters');
+        $newUnit->addAlias('meters squared');
+        $newUnit->addAlias('metre squared');
+        $newUnit->addAlias('metres squared');
+        static::addUnit($newUnit);
 
-        // Millimeter squared
         $newUnit = UnitOfMeasure::linearUnitFactory('mm^2', 1e-6);
         $newUnit->addAlias('mm²');
         $newUnit->addAlias('millimeter squared');
@@ -32,7 +30,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('millimetres squared');
         static::addUnit($newUnit);
 
-        // Centimeter squared
         $newUnit = UnitOfMeasure::linearUnitFactory('cm^2', 1e-4);
         $newUnit->addAlias('cm²');
         $newUnit->addAlias('centimeter squared');
@@ -43,7 +40,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('centimetres squared');
         static::addUnit($newUnit);
 
-        // Decimeter squared
         $newUnit = UnitOfMeasure::linearUnitFactory('dm^2', 1e-2);
         $newUnit->addAlias('dm²');
         $newUnit->addAlias('decimeter squared');
@@ -54,7 +50,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('decimetres squared');
         static::addUnit($newUnit);
 
-        // Kilometer squared
         $newUnit = UnitOfMeasure::linearUnitFactory('km^2', 1e6);
         $newUnit->addAlias('km²');
         $newUnit->addAlias('kilometer squared');
@@ -65,7 +60,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('kilometres squared');
         static::addUnit($newUnit);
 
-        // Foot squared
         $newUnit = UnitOfMeasure::linearUnitFactory('ft^2', 9.290304e-2);
         $newUnit->addAlias('ft²');
         $newUnit->addAlias('foot squared');
@@ -74,7 +68,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('feet squared');
         static::addUnit($newUnit);
 
-        // Inch squared
         $newUnit = UnitOfMeasure::linearUnitFactory('in^2', 6.4516e-4);
         $newUnit->addAlias('in²');
         $newUnit->addAlias('inch squared');
@@ -83,7 +76,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('inches squared');
         static::addUnit($newUnit);
 
-        // Mile squared
         $newUnit = UnitOfMeasure::linearUnitFactory('mi^2', 2.589988e6);
         $newUnit->addAlias('mi²');
         $newUnit->addAlias('mile squared');
@@ -92,7 +84,6 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('square miles');
         static::addUnit($newUnit);
 
-        // Yard squared
         $newUnit = UnitOfMeasure::linearUnitFactory('yd^2', 8.361274e-1);
         $newUnit->addAlias('yd²');
         $newUnit->addAlias('yard squared');
@@ -101,25 +92,21 @@ class Area extends AbstractPhysicalQuantity
         $newUnit->addAlias('square yards');
         static::addUnit($newUnit);
 
-        // Are
         $newUnit = UnitOfMeasure::linearUnitFactory('a', 100);
         $newUnit->addAlias('are');
         $newUnit->addAlias('ares');
         static::addUnit($newUnit);
 
-        // Decare
         $newUnit = UnitOfMeasure::linearUnitFactory('daa', 1000);
         $newUnit->addAlias('decare');
         $newUnit->addAlias('decares');
         static::addUnit($newUnit);
 
-        // Hectare
         $newUnit = UnitOfMeasure::linearUnitFactory('ha', 10000);
         $newUnit->addAlias('hectare');
         $newUnit->addAlias('hectares');
         static::addUnit($newUnit);
 
-        // International Acre
         $newUnit = UnitOfMeasure::linearUnitFactory('ac', 4046.8564224);
         $newUnit->addAlias('acre');
         $newUnit->addAlias('acres');

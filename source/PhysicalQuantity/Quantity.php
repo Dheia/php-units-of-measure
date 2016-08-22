@@ -13,14 +13,13 @@ class Quantity extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Moles
-        $mole = UnitOfMeasure::nativeUnitFactory('mol');
-        $mole->addAlias('mole');
-        $mole->addAlias('moles');
-        static::addUnit($mole);
+        $newUnit = UnitOfMeasure::nativeUnitFactory('mol');
+        $newUnit->addAlias('mole');
+        $newUnit->addAlias('moles');
+        static::addUnit($newUnit);
 
         static::addMissingSIPrefixedUnits(
-            $mole,
+            $newUnit,
             1,
             '%pmol',
             [

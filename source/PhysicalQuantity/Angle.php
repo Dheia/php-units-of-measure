@@ -13,14 +13,12 @@ class Angle extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Radians
-        $radian = UnitOfMeasure::nativeUnitFactory('rad');
-        $radian->addAlias('radian');
-        $radian->addAlias('radians');
-        static::addUnit($radian);
-
+        $newUnit = UnitOfMeasure::nativeUnitFactory('rad');
+        $newUnit->addAlias('radian');
+        $newUnit->addAlias('radians');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $radian,
+            $newUnit,
             1,
             '%prad',
             [
@@ -29,15 +27,13 @@ class Angle extends AbstractPhysicalQuantity
             ]
         );
 
-        // Degrees
-        $degree = UnitOfMeasure::linearUnitFactory('deg', M_PI / 180);
-        $degree->addAlias('°');
-        $degree->addAlias('degree');
-        $degree->addAlias('degrees');
-        static::addUnit($degree);
-
+        $newUnit = UnitOfMeasure::linearUnitFactory('deg', M_PI / 180);
+        $newUnit->addAlias('°');
+        $newUnit->addAlias('degree');
+        $newUnit->addAlias('degrees');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $degree,
+            $newUnit,
             1,
             '%pdeg',
             [
@@ -46,27 +42,24 @@ class Angle extends AbstractPhysicalQuantity
             ]
         );
 
-        // Arcminute
-        $arcminute = UnitOfMeasure::linearUnitFactory('arcmin', M_PI / 180 / 60);
-        $arcminute->addAlias('′');
-        $arcminute->addAlias('arcminute');
-        $arcminute->addAlias('arcminutes');
-        $arcminute->addAlias('amin');
-        $arcminute->addAlias('am');
-        $arcminute->addAlias('MOA');
-        static::addUnit($arcminute);
+        $newUnit = UnitOfMeasure::linearUnitFactory('arcmin', M_PI / 180 / 60);
+        $newUnit->addAlias('′');
+        $newUnit->addAlias('arcminute');
+        $newUnit->addAlias('arcminutes');
+        $newUnit->addAlias('amin');
+        $newUnit->addAlias('am');
+        $newUnit->addAlias('MOA');
+        static::addUnit($newUnit);
 
-        // Arcsecond
-        $arcsecond = UnitOfMeasure::linearUnitFactory('arcsec', M_PI / 180 / 3600);
-        $arcsecond->addAlias('″');
-        $arcminute->addAlias('arcsecond');
-        $arcminute->addAlias('arcseconds');
-        $arcsecond->addAlias('asec');
-        $arcsecond->addAlias('as');
-        static::addUnit($arcsecond);
-
+        $newUnit = UnitOfMeasure::linearUnitFactory('arcsec', M_PI / 180 / 3600);
+        $newUnit->addAlias('″');
+        $newUnit->addAlias('arcsecond');
+        $newUnit->addAlias('arcseconds');
+        $newUnit->addAlias('asec');
+        $newUnit->addAlias('as');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $arcsecond,
+            $newUnit,
             1,
             '%Parcsec',
             [

@@ -13,14 +13,12 @@ class Mass extends AbstractPhysicalQuantity
 
     protected static function initialize()
     {
-        // Kilogram
-        $kilogram = UnitOfMeasure::nativeUnitFactory('kg');
-        $kilogram->addAlias('kilogram');
-        $kilogram->addAlias('kilograms');
-        static::addUnit($kilogram);
-
+        $newUnit = UnitOfMeasure::nativeUnitFactory('kg');
+        $newUnit->addAlias('kilogram');
+        $newUnit->addAlias('kilograms');
+        static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
-            $kilogram,
+            $newUnit,
             1e-3,
             '%pg',
             [
@@ -29,7 +27,6 @@ class Mass extends AbstractPhysicalQuantity
             ]
         );
 
-        // Tonne (metric)
         $newUnit = UnitOfMeasure::linearUnitFactory('t', 1e3);
         $newUnit->addAlias('ton');
         $newUnit->addAlias('tons');
@@ -37,20 +34,17 @@ class Mass extends AbstractPhysicalQuantity
         $newUnit->addAlias('tonnes');
         static::addUnit($newUnit);
 
-        // Pound
         $newUnit = UnitOfMeasure::linearUnitFactory('lb', 4.5359237e-1);
         $newUnit->addAlias('lbs');
         $newUnit->addAlias('pound');
         $newUnit->addAlias('pounds');
         static::addUnit($newUnit);
 
-        // Ounce
         $newUnit = UnitOfMeasure::linearUnitFactory('oz', 4.5359237e-1 / 16);
         $newUnit->addAlias('ounce');
         $newUnit->addAlias('ounces');
         static::addUnit($newUnit);
 
-        // Stone
         $newUnit = UnitOfMeasure::linearUnitFactory('st', 4.5359237e-1 * 14);
         $newUnit->addAlias('stone');
         $newUnit->addAlias('stones');
