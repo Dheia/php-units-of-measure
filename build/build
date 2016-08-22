@@ -15,6 +15,8 @@ clear_generated_file_directory(GENERATED_CLASS_DIR);
 
 render_class_template($unit_config['base_units'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
 
+render_class_template($unit_config['derived_units'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
+
 print "Done.\n";
 
 

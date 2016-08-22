@@ -1,9 +1,8 @@
 ---
-# http://physics.nist.gov/cuu/Units/units.html
+###
+#
+###
 base_units:
-  - name: Acceleration
-    si_unit: [m/s^2, m/s², meter per second squared, meters per second squared, metre per second squared, metres per second squared]
-
   - name: Angle
     si_unit: [rad, radian, radians]
     metric_prefixes:
@@ -13,36 +12,10 @@ base_units:
       - (M_PI / 180 / 60) arcmin, ′, arcminute, arcminutes, amin, am, MOA
       - (M_PI / 180 / 3600) arcsec, ″, arcsecond, arcseconds, asec, as
 
-  - name: Area
-    si_unit: [m^2, m², meter squared, square meter, square meters, meters squared, metre squared, metres squared]
-    conversion_factors:
-      - 1e-6 mm^2, mm², millimeter squared, square millimeter, square millimeters, millimeters squared, millimetre squared, millimetres squared
-      - 1e-4 cm^2, cm², centimeter squared, square centimeter, square centimeters, centimeters squared, centimetre squared, centimetres squared
-      - 1e-2 dm^2, dm², decimeter squared, square decimeters, square decimeter, decimeters squared, decimetre squared, decimetres squared
-      - 1e6 km^2, km², kilometer squared, kilometers squared, square kilometer, square kilometers, kilometre squared, kilometres squared
-      - 9.290304e-2 ft^2, ft², foot squared, square foot, square feet, feet squared
-      - 6.4516e-4 in^2, in², inch squared, square inch, square inches, inches squared
-      - 2.589988e6 mi^2, mi², mile squared, miles squared, square mile, square miles
-      - 8.361274e-1 yd^2, yd², yard squared, yards squared, square yard, square yards
-      - 100 a, are, ares
-      - 1000 daa, decare, decares
-      - 10000 ha, hectare, hectares
-      - 4046.8564224 ac, acre, acres
-
   - name: ElectricCurrent
     si_unit: [A, amp, amps, ampere, amperes]
     metric_prefixes:
       patterns: [%pA, %Pamp, %Pamps, %Pampere, %Pamperes]
-
-  - name: Energy
-    si_unit: [J, joule, joules]
-    metric_prefixes:
-      patterns: [%pJ, %Pjoule, %Pjoules]
-    conversion_factors:
-      - 3600 Wh, watt hour, watt hours
-
-  # - name: Force
-  #   si_unit: [N, newton, newtons]
 
   - name: Length
     si_unit: [m, meter, meters, metre, metres]
@@ -72,18 +45,6 @@ base_units:
       - 4.5359237e-1 lb, lbs, pound, pounds
       - (4.5359237e-1 / 16) oz, ounce, ounces
       - (4.5359237e-1 * 14) st, stone, stones
-
-  - name: Pressure
-    si_unit: [Pa, pascal]
-    metric_prefixes:
-      patterns: [%pPa, %Ppascal]
-    conversion_factors:
-      - 101325 atm, atmosphere, atmospheres
-      - 1e5 bar
-      - 3.386389e3 inHg, inches of mercury
-      - 133.3224 mmHg, millimeters of mercury, millimetres of mercury, torr
-      - 6.894757e3 psi, pounds per square inch
-
 
   - name: Quantity
     si_unit: [mol, mole, moles]
@@ -123,8 +84,54 @@ base_units:
       - 31556952000 millennium, millennia
       - 31557600 jyr, julian year, julian years
 
+derived_units:
+  - name: Acceleration
+    si_unit: [m/s^2, m/s², meter per second squared, meters per second squared, metre per second squared, metres per second squared]
+    base_unit_factors: Length / Time / Time
+
+  - name: Area
+    si_unit: [m^2, m², meter squared, square meter, square meters, meters squared, metre squared, metres squared]
+    base_unit_factors: Length * Length
+    conversion_factors:
+      - 1e-6 mm^2, mm², millimeter squared, square millimeter, square millimeters, millimeters squared, millimetre squared, millimetres squared
+      - 1e-4 cm^2, cm², centimeter squared, square centimeter, square centimeters, centimeters squared, centimetre squared, centimetres squared
+      - 1e-2 dm^2, dm², decimeter squared, square decimeters, square decimeter, decimeters squared, decimetre squared, decimetres squared
+      - 1e6 km^2, km², kilometer squared, kilometers squared, square kilometer, square kilometers, kilometre squared, kilometres squared
+      - 9.290304e-2 ft^2, ft², foot squared, square foot, square feet, feet squared
+      - 6.4516e-4 in^2, in², inch squared, square inch, square inches, inches squared
+      - 2.589988e6 mi^2, mi², mile squared, miles squared, square mile, square miles
+      - 8.361274e-1 yd^2, yd², yard squared, yards squared, square yard, square yards
+      - 100 a, are, ares
+      - 1000 daa, decare, decares
+      - 10000 ha, hectare, hectares
+      - 4046.8564224 ac, acre, acres
+
+  - name: Energy
+    si_unit: [J, joule, joules]
+    metric_prefixes:
+      patterns: [%pJ, %Pjoule, %Pjoules]
+    base_unit_factors: Mass * Length * Length / Time / Time
+    conversion_factors:
+      - 3600 Wh, watt hour, watt hours
+
+#   - name: Force
+#     base_unit_factors: Mass * Length / Time / Time
+
+  - name: Pressure
+    si_unit: [Pa, pascal]
+    metric_prefixes:
+      patterns: [%pPa, %Ppascal]
+    base_unit_factors: Mass / Time / Time / Length
+    conversion_factors:
+      - 101325 atm, atmosphere, atmospheres
+      - 1e5 bar
+      - 3.386389e3 inHg, inches of mercury
+      - 133.3224 mmHg, millimeters of mercury, millimetres of mercury, torr
+      - 6.894757e3 psi, pounds per square inch
+
   - name: Velocity
     si_unit: [m/s, meters/sec, meters per second, meter per second, metres per second, metre per second]
+    base_unit_factors: Length / Time
     conversion_factors:
       - 0.277778 km/h, km/hour, kilometer per hour, kilometers per hour, kilometre per hour, kilometres per hour
       - 0.3048 ft/s, feet/sec, feet per second
@@ -133,6 +140,7 @@ base_units:
 
   - name: Volume
     si_unit: [m^3, m³, cubic meter, cubic meters, cubic metre, cubic metres]
+    base_unit_factors: Length * Length * Length
     conversion_factors:
       - 1e-9 mm^3, mm³, cubic millimeter, cubic millimeters, cubic millimetre, cubic millimetres
       - 1e-6 cm^3, cm³, cubic centimeter, cubic centimeters, cubic centimetre, cubic centimetres
@@ -154,25 +162,3 @@ base_units:
       - 9.4635295e-4 qt, quart, quarts, qts, liq qt
       - 2.957353e-5 fl oz, fluid ounce, fluid ounces, fluid oz, fl. oz., oz. fl.
       - 4.73176475e-4 pt, pint, pints, liq pt
-
-# derived_units:
-#   - name: Acceleration
-#     base_unit_factors: Length / Time / Time
-
-#   - name: Area
-#     base_unit_factors: Length * Length
-
-#   - name: Energy
-#     base_unit_factors: Mass * Length * Length / Time / Time
-
-#   - name: Force
-#     base_unit_factors: Mass * Length / Time / Time
-
-#   - name: Pressure
-#     base_unit_factors: Mass / Time / Time / Length
-
-#   - name: Velocity
-#     base_unit_factors: Length / Time
-
-#   - name: Volume
-#     base_unit_factors: Length * Length * Length
