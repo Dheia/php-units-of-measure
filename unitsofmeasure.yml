@@ -12,12 +12,12 @@ base_quantities:
       - names: [deg, °, degree, degrees]
         metric_prefixes:
           patterns: [%pdeg, %Pdegree, %Pdegrees]
-        conversion_factor: (M_PI / 180)
-      - (M_PI / 180 / 60) arcmin, ′, arcminute, arcminutes, amin, am, MOA
+        conversion_factor: M_PI / 180
+      - M_PI / 180 / 60 = arcmin, ′, arcminute, arcminutes, amin, am, MOA
       - names: [arcsec, ″, arcsecond, arcseconds, asec, as]
         metric_prefixes:
           patterns: [%Parcsec, %Parcsecond, %Parcseconds, %pasec, %pas]
-        conversion_factor: (M_PI / 180 / 3600)
+        conversion_factor: M_PI / 180 / 3600
 
   - name: ElectricCurrent
     si_unit:
@@ -31,13 +31,13 @@ base_quantities:
       metric_prefixes:
         patterns: [%pm, %Pmeter, %Pmeters, %Pmetre, %Pmetres]
     additional_units:
-      - 0.3048 ft, foot, feet
-      - 0.0254 in, inch, inches
-      - 1609.344 mi, mile, miles
-      - 0.9144 yd, yard, yards
-      - 1852 M, nautical mile, nautical miles, nmi, NM
-      - 10000 mil
-      - 149597870700 AU, au, astronomical unit, astronomical units
+      - 0.3048 = ft, foot, feet
+      - 0.0254 = in, inch, inches
+      - 1609.344 = mi, mile, miles
+      - 0.9144 = yd, yard, yards
+      - 1852 = M, nautical mile, nautical miles, nmi, NM
+      - 10000 = mil
+      - 149597870700 = AU, au, astronomical unit, astronomical units
 
   - name: LuminousIntensity
     si_unit:
@@ -52,10 +52,10 @@ base_quantities:
         patterns: [%pg, %Pgram, %Pgrams]
         si_unit_scaling_factor: 1e-3
     additional_units:
-      - 1e3 t, ton, tons, tonne, tonnes
-      - 4.5359237e-1 lb, lbs, pound, pounds
-      - (4.5359237e-1 / 16) oz, ounce, ounces
-      - (4.5359237e-1 * 14) st, stone, stones
+      - 1e3 = t, ton, tons, tonne, tonnes
+      - 4.5359237e-1 = lb, lbs, pound, pounds
+      - 4.5359237e-1 / 16 = oz, ounce, ounces
+      - 4.5359237e-1 * 14 = st, stone, stones
 
   - name: Quantity
     si_unit:
@@ -76,25 +76,25 @@ base_quantities:
         patterns: [%pK, %Pkelvin]
     additional_units:
       - names: [°C, C, celsius]
-        from_si_unit_formula: (x - 273.15)
-        to_si_unit_formula: (x + 273.15)
+        from_si_unit_formula: x - 273.15
+        to_si_unit_formula: x + 273.15
       - names: [°F, F, fahrenheit]
-        from_si_unit_formula: ((x * 9 / 5) - 459.67)
-        to_si_unit_formula: ((x + 459.67) * 5 / 9)
+        from_si_unit_formula: (x * 9 / 5) - 459.67
+        to_si_unit_formula: (x + 459.67) * 5/9
       - names: [°R, R, rankine]
         conversion_factor: 5/9
       - names: [°De, De, delisle]
-        from_si_unit_formula: ((373.15 - x) * 3/2)
-        to_si_unit_formula: (373.15 - x * 2/3)
+        from_si_unit_formula: (373.15 - x) * 3/2
+        to_si_unit_formula: 373.15 - x * 2/3
       - names: [°N, N, newton]
-        from_si_unit_formula: ((x - 273.15) * 33/100)
-        to_si_unit_formula: (x * 100/33 + 273.15)
+        from_si_unit_formula: (x - 273.15) * 33/100
+        to_si_unit_formula: x * 100/33 + 273.15
       - names: [°Ré, °Re, Ré, Re, réaumur, reaumur]
-        from_si_unit_formula: ((x - 273.15) * 4/5)
-        to_si_unit_formula: (x * 5/4 + 273.15)
+        from_si_unit_formula: (x - 273.15) * 4/5
+        to_si_unit_formula: x * 5/4 + 273.15
       - names: [°Rø, °Ro, Rø, Ro, rømer, romer]
-        from_si_unit_formula: ((x - 273.15) * (21/40) + 7.5)
-        to_si_unit_formula: ((x - 7.5) * 40/21 + 273.15)
+        from_si_unit_formula: (x - 273.15) * 21/40 + 7.5
+        to_si_unit_formula: (x - 7.5) * 40/21 + 273.15
 
   - name: Time
     si_unit:
@@ -102,15 +102,15 @@ base_quantities:
       metric_prefixes:
         patterns: [%ps, %Psec, %Psecs, %Psecond, %Pseconds]
     additional_units:
-      - 60 m, min, mins, minute, minutes
-      - 3600 h, hr, hrs, hour, hours
-      - 86400 d, day, days
-      - 604800 w, wk, wks, week, weeks
-      - 31556952 yr, year, years, gregorian year, gregorian years
-      - 315569520 decade, decades
-      - 3155695200 century, centuries
-      - 31556952000 millennium, millennia
-      - 31557600 jyr, julian year, julian years
+      - 60 = m, min, mins, minute, minutes
+      - 3600 = h, hr, hrs, hour, hours
+      - 86400 = d, day, days
+      - 604800 = w, wk, wks, week, weeks
+      - 31556952 = yr, year, years, gregorian year, gregorian years
+      - 315569520 = decade, decades
+      - 3155695200 = century, centuries
+      - 31556952000 = millennium, millennia
+      - 31557600 = jyr, julian year, julian years
 
 derived_quantities:
   - name: Acceleration
@@ -123,18 +123,18 @@ derived_quantities:
     si_unit:
       names: [m^2, m², meter squared, square meter, square meters, meters squared, metre squared, metres squared]
     additional_units:
-      - 1e-6 mm^2, mm², millimeter squared, square millimeter, square millimeters, millimeters squared, millimetre squared, millimetres squared
-      - 1e-4 cm^2, cm², centimeter squared, square centimeter, square centimeters, centimeters squared, centimetre squared, centimetres squared
-      - 1e-2 dm^2, dm², decimeter squared, square decimeters, square decimeter, decimeters squared, decimetre squared, decimetres squared
-      - 1e6 km^2, km², kilometer squared, kilometers squared, square kilometer, square kilometers, kilometre squared, kilometres squared
-      - 9.290304e-2 ft^2, ft², foot squared, square foot, square feet, feet squared
-      - 6.4516e-4 in^2, in², inch squared, square inch, square inches, inches squared
-      - 2.589988e6 mi^2, mi², mile squared, miles squared, square mile, square miles
-      - 8.361274e-1 yd^2, yd², yard squared, yards squared, square yard, square yards
-      - 100 a, are, ares
-      - 1000 daa, decare, decares
-      - 10000 ha, hectare, hectares
-      - 4046.8564224 ac, acre, acres
+      - 1e-6 = mm^2, mm², millimeter squared, square millimeter, square millimeters, millimeters squared, millimetre squared, millimetres squared
+      - 1e-4 = cm^2, cm², centimeter squared, square centimeter, square centimeters, centimeters squared, centimetre squared, centimetres squared
+      - 1e-2 = dm^2, dm², decimeter squared, square decimeters, square decimeter, decimeters squared, decimetre squared, decimetres squared
+      - 1e6 = km^2, km², kilometer squared, kilometers squared, square kilometer, square kilometers, kilometre squared, kilometres squared
+      - 9.290304e-2 = ft^2, ft², foot squared, square foot, square feet, feet squared
+      - 6.4516e-4 = in^2, in², inch squared, square inch, square inches, inches squared
+      - 2.589988e6 = mi^2, mi², mile squared, miles squared, square mile, square miles
+      - 8.361274e-1 = yd^2, yd², yard squared, yards squared, square yard, square yards
+      - 100 = a, are, ares
+      - 1000 = daa, decare, decares
+      - 10000 = ha, hectare, hectares
+      - 4046.8564224 = ac, acre, acres
 
   - name: Energy
     base_unit_factors: Mass * Length * Length / Time / Time
@@ -158,47 +158,47 @@ derived_quantities:
       metric_prefixes:
         patterns: [%pPa, %Ppascal]
     additional_units:
-      - 101325 atm, atmosphere, atmospheres
+      - 101325 = atm, atmosphere, atmospheres
       - names: [bar]
         metric_prefixes:
           patterns: [%pbar]
         conversion_factor: 1e5
-      - 3.386389e3 inHg, inches of mercury
-      - 133.3224 mmHg, millimeters of mercury, millimetres of mercury, torr
-      - 6.894757e3 psi, pounds per square inch
+      - 3.386389e3 = inHg, inches of mercury
+      - 133.3224 = mmHg, millimeters of mercury, millimetres of mercury, torr
+      - 6.894757e3 = psi, pounds per square inch
 
   - name: Velocity
     base_unit_factors: Length / Time
     si_unit:
       names: [m/s, meters/sec, meters per second, meter per second, metres per second, metre per second]
     additional_units:
-      - 0.277778 km/h, km/hour, kilometer per hour, kilometers per hour, kilometre per hour, kilometres per hour
-      - 0.3048 ft/s, feet/sec, feet per second
-      - 0.44704 mph, miles/hour, miles per hour
-      - 0.514444 knot, knots
+      - 0.277778 = km/h, km/hour, kilometer per hour, kilometers per hour, kilometre per hour, kilometres per hour
+      - 0.3048 = ft/s, feet/sec, feet per second
+      - 0.44704 = mph, miles/hour, miles per hour
+      - 0.514444 = knot, knots
 
   - name: Volume
     base_unit_factors: Length * Length * Length
     si_unit:
       names: [m^3, m³, cubic meter, cubic meters, cubic metre, cubic metres]
     additional_units:
-      - 1e-9 mm^3, mm³, cubic millimeter, cubic millimeters, cubic millimetre, cubic millimetres
-      - 1e-6 cm^3, cm³, cubic centimeter, cubic centimeters, cubic centimetre, cubic centimetres
-      - 1e-3 dm^3, dm³, cubic decimeter, cubic decimeters, cubic decimetre, cubic decimetres
-      - 1e9 km^3, km³, cubic kilometer, cubic kilometers, cubic kilometre, cubic kilometres
-      - 2.831685e-2 ft^3, ft³, cubic foot, cubic feet
-      - 1.638706e-5 in^3, in³, cubic inch, cubic inches
-      - 7.645549e-1 yd^3, yd³, cubic yard, cubic yards
-      - 1e-6 ml, milliliter, milliliters, millilitre, millilitres
-      - 1e-5 cl, centiliter, centiliters, centilitre, centilitres
-      - 1e-4 dl, deciliter, deciliters, decilitre, decilitres
-      - 1e-3 l, liter, liters, litre, litres
-      - 1e-2 dal, decaliter, decaliters, decalitre, decalitres
-      - 1e-1 hl, hectoliter, hectoliters, hectolitre, hectolitres
-      - 2.365882e-4 cup, cups
-      - 0.00000492892 tsp, teaspoon, teaspoons
-      - 0.00001478676 tbsp, tablespoon, tablespoons
-      - 3.7854118e-3 gal, gallon, gallons, us gal
-      - 9.4635295e-4 qt, quart, quarts, qts, liq qt
-      - 2.957353e-5 fl oz, fluid ounce, fluid ounces, fluid oz, fl. oz., oz. fl.
-      - 4.73176475e-4 pt, pint, pints, liq pt
+      - 1e-9 = mm^3, mm³, cubic millimeter, cubic millimeters, cubic millimetre, cubic millimetres
+      - 1e-6 = cm^3, cm³, cubic centimeter, cubic centimeters, cubic centimetre, cubic centimetres
+      - 1e-3 = dm^3, dm³, cubic decimeter, cubic decimeters, cubic decimetre, cubic decimetres
+      - 1e9 = km^3, km³, cubic kilometer, cubic kilometers, cubic kilometre, cubic kilometres
+      - 2.831685e-2 = ft^3, ft³, cubic foot, cubic feet
+      - 1.638706e-5 = in^3, in³, cubic inch, cubic inches
+      - 7.645549e-1 = yd^3, yd³, cubic yard, cubic yards
+      - 1e-6 = ml, milliliter, milliliters, millilitre, millilitres
+      - 1e-5 = cl, centiliter, centiliters, centilitre, centilitres
+      - 1e-4 = dl, deciliter, deciliters, decilitre, decilitres
+      - 1e-3 = l, liter, liters, litre, litres
+      - 1e-2 = dal, decaliter, decaliters, decalitre, decalitres
+      - 1e-1 = hl, hectoliter, hectoliters, hectolitre, hectolitres
+      - 2.365882e-4 = cup, cups
+      - 0.00000492892 = tsp, teaspoon, teaspoons
+      - 0.00001478676 = tbsp, tablespoon, tablespoons
+      - 3.7854118e-3 = gal, gallon, gallons, us gal
+      - 9.4635295e-4 = qt, quart, quarts, qts, liq qt
+      - 2.957353e-5 = fl oz, fluid ounce, fluid ounces, fluid oz, fl. oz., oz. fl.
+      - 4.73176475e-4 = pt, pint, pints, liq pt

@@ -64,48 +64,28 @@ function normalize_additional_units($data) {
         $data['additional_units'] = [];
     }
 
-    foreach ($data['additional_units'] as $index => $conversion_factor) {
+    foreach ($data['additional_units'] as $index => $unit_definition) {
         // If the definition is in string form, we need to parse it
-        if (is_string($conversion_factor)) {
-
-            // First, we'll split on commas, to get the "first chunk"
-            // separate from the list of unit synonyms
-            $synonyms = split(',', $conversion_factor);
-            $front = array_shift($synonyms);
-
-            // If the first chunk contains parentheses, we'll treat the outermost
-            // set as a block, and split right after the last close parenthesis.
-            if (strpos($front, '(') !== false)  {
-                $last_close = strrpos($front, ')');
-                $factor = substr($front, 0, $last_close+1);
-                $first_synonym = substr($front, $last_close+1);
-                array_unshift($synonyms, $first_synonym);
-
-            } else {
-                // Otherwise, just split on the first space to separate the factor
-                // from the units
-                list($factor, $first_synonym) = split(" ", $front, 2);
-                array_unshift($synonyms, $first_synonym);
-            }
-
-            // Parsed-string definitions just have names and conversion factors
-            $conversion_factor = [
-                'names'             => array_map('trim', $synonyms),
-                'conversion_factor' => trim($factor)
+        if (is_string($unit_definition)) {
+            list($formula, $units) = explode('=', $unit_definition, 2);
+            $units = explode(',', $units);
+            $unit_definition = [
+                'names'             => array_map('trim', $units),
+                'conversion_factor' => trim($formula)
             ];
         }
 
         // Any variables in formulae like 'x' need to be '$x'
-        if (array_key_exists('from_si_unit_formula', $conversion_factor)) {
-            $conversion_factor['from_si_unit_formula'] = preg_replace('/([^\$])x/', '${1}$x', $conversion_factor['from_si_unit_formula']);
+        if (array_key_exists('from_si_unit_formula', $unit_definition)) {
+            $unit_definition['from_si_unit_formula'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_definition['from_si_unit_formula']);
         }
-        if (array_key_exists('to_si_unit_formula', $conversion_factor)) {
-            $conversion_factor['to_si_unit_formula'] = preg_replace('/([^\$])x/', '${1}$x', $conversion_factor['to_si_unit_formula']);
+        if (array_key_exists('to_si_unit_formula', $unit_definition)) {
+            $unit_definition['to_si_unit_formula'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_definition['to_si_unit_formula']);
         }
 
-        $conversion_factor = normalize_metric_prefixes($conversion_factor);
+        $unit_definition = normalize_metric_prefixes($unit_definition);
 
-        $data['additional_units'][$index] = $conversion_factor;
+        $data['additional_units'][$index] = $unit_definition;
     }
 
     return $data;
@@ -120,8 +100,8 @@ function flag_for_needs_metric_prefixes($data) {
     }
 
     // if any of the unit conversions have metric prefixes
-    foreach ($data['additional_units'] as $conversion_factor) {
-        if (array_key_exists('metric_prefixes', $conversion_factor)) {
+    foreach ($data['additional_units'] as $unit_definition) {
+        if (array_key_exists('metric_prefixes', $unit_definition)) {
             $data['has_metric_prefixes'] = true;
             break;
         }

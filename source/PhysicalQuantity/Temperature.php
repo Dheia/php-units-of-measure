@@ -35,10 +35,10 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit = new UnitOfMeasure(
             '°C',
             function ($x) {
-                return ($x - 273.15);
+                return $x - 273.15;
             },
             function ($x) {
-                return ($x + 273.15);
+                return $x + 273.15;
             }
         );
         $newUnit->addAlias('C');
@@ -48,10 +48,10 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit = new UnitOfMeasure(
             '°F',
             function ($x) {
-                return (($x * 9 / 5) - 459.67);
+                return ($x * 9 / 5) - 459.67;
             },
             function ($x) {
-                return (($x + 459.67) * 5 / 9);
+                return ($x + 459.67) * 5/9;
             }
         );
         $newUnit->addAlias('F');
@@ -66,10 +66,10 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit = new UnitOfMeasure(
             '°De',
             function ($x) {
-                return ((373.15 - $x) * 3/2);
+                return (373.15 - $x) * 3/2;
             },
             function ($x) {
-                return (373.15 - $x * 2/3);
+                return 373.15 - $x * 2/3;
             }
         );
         $newUnit->addAlias('De');
@@ -79,10 +79,10 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit = new UnitOfMeasure(
             '°N',
             function ($x) {
-                return (($x - 273.15) * 33/100);
+                return ($x - 273.15) * 33/100;
             },
             function ($x) {
-                return ($x * 100/33 + 273.15);
+                return $x * 100/33 + 273.15;
             }
         );
         $newUnit->addAlias('N');
@@ -92,10 +92,10 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit = new UnitOfMeasure(
             '°Ré',
             function ($x) {
-                return (($x - 273.15) * 4/5);
+                return ($x - 273.15) * 4/5;
             },
             function ($x) {
-                return ($x * 5/4 + 273.15);
+                return $x * 5/4 + 273.15;
             }
         );
         $newUnit->addAlias('°Re');
@@ -108,10 +108,10 @@ class Temperature extends AbstractPhysicalQuantity
         $newUnit = new UnitOfMeasure(
             '°Rø',
             function ($x) {
-                return (($x - 273.15) * (21/40) + 7.5);
+                return ($x - 273.15) * 21/40 + 7.5;
             },
             function ($x) {
-                return (($x - 7.5) * 40/21 + 273.15);
+                return ($x - 7.5) * 40/21 + 273.15;
             }
         );
         $newUnit->addAlias('°Ro');
