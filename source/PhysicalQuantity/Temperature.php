@@ -26,9 +26,9 @@ class Temperature extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pK',
+            '%{p}K',
             [
-                '%Pkelvin',
+                '%{P}kelvin',
             ]
         );
 

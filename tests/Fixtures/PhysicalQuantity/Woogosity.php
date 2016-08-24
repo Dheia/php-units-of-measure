@@ -21,10 +21,10 @@ class Woogosity extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $native,
             1,
-            '%pl',
+            '%{p}l',
             [
-                '%Plupee',
-                '%Plupees',
+                '%{P}lupee',
+                '%{P}lupees',
             ]
         );
 

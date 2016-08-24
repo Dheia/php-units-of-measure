@@ -25,9 +25,9 @@ class Pressure extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pPa',
+            '%{p}Pa',
             [
-                '%Ppascal',
+                '%{P}pascal',
             ]
         );
 
@@ -41,7 +41,7 @@ class Pressure extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pbar',
+            '%{p}bar',
             [
             ]
         );

@@ -7,29 +7,29 @@ base_quantities:
     si_unit:
       names: [rad, radian, radians]
       metric_prefixes:
-        patterns: [%prad, %Pradian, %Pradians]
+        patterns: [%{p}rad, %{P}radian, %{P}radians]
     additional_units:
       - names: [deg, °, degree, degrees]
         metric_prefixes:
-          patterns: [%pdeg, %Pdegree, %Pdegrees]
+          patterns: [%{p}deg, %{P}degree, %{P}degrees]
         conversion_factor: M_PI / 180
       - M_PI / 180 / 60 = arcmin, ′, arcminute, arcminutes, amin, am, MOA
       - names: [arcsec, ″, arcsecond, arcseconds, asec, as]
         metric_prefixes:
-          patterns: [%Parcsec, %Parcsecond, %Parcseconds, %pasec, %pas]
+          patterns: [%{P}arcsec, %{P}arcsecond, %{P}arcseconds, %{p}asec, %{p}as]
         conversion_factor: M_PI / 180 / 3600
 
   - name: ElectricCurrent
     si_unit:
       names: [A, amp, amps, ampere, amperes]
       metric_prefixes:
-        patterns: [%pA, %Pamp, %Pamps, %Pampere, %Pamperes]
+        patterns: [%{p}A, %{P}amp, %{P}amps, %{P}ampere, %{P}amperes]
 
   - name: Length
     si_unit:
       names: [m, meter, meters, metre, metres]
       metric_prefixes:
-        patterns: [%pm, %Pmeter, %Pmeters, %Pmetre, %Pmetres]
+        patterns: [%{p}m, %{P}meter, %{P}meters, %{P}metre, %{P}metres]
     additional_units:
       - 0.3048 = ft, foot, feet
       - 0.0254 = in, inch, inches
@@ -43,13 +43,13 @@ base_quantities:
     si_unit:
       names: [cd, candela]
       metric_prefixes:
-        patterns: [%pcd, %Pcandela]
+        patterns: [%{p}cd, %{P}candela]
 
   - name: Mass
     si_unit:
       names: [kg, kilogram, kilograms]
       metric_prefixes:
-        patterns: [%pg, %Pgram, %Pgrams]
+        patterns: [%{p}g, %{P}gram, %{P}grams]
         si_unit_scaling_factor: 1e-3
     additional_units:
       - 1e3 = t, ton, tons, tonne, tonnes
@@ -61,19 +61,19 @@ base_quantities:
     si_unit:
       names: [mol, mole, moles]
       metric_prefixes:
-        patterns: [%pmol, %Pmole, %Pmoles]
+        patterns: [%{p}mol, %{P}mole, %{P}moles]
 
   - name: SolidAngle
     si_unit:
       names: [sr, steradian, steradians]
       metric_prefixes:
-        patterns: [%psr, %Psteradian, %Psteradians]
+        patterns: [%{p}sr, %{P}steradian, %{P}steradians]
 
   - name: Temperature
     si_unit:
       names: [K, °K, kelvin]
       metric_prefixes:
-        patterns: [%pK, %Pkelvin]
+        patterns: [%{p}K, %{P}kelvin]
     additional_units:
       - names: [°C, C, celsius]
         from_si_unit_formula: x - 273.15
@@ -100,7 +100,7 @@ base_quantities:
     si_unit:
       names: [s, sec, secs, second, seconds]
       metric_prefixes:
-        patterns: [%ps, %Psec, %Psecs, %Psecond, %Pseconds]
+        patterns: [%{p}s, %{P}sec, %{P}secs, %{P}second, %{P}seconds]
     additional_units:
       - 60 = m, min, mins, minute, minutes
       - 3600 = h, hr, hrs, hour, hours
@@ -141,11 +141,11 @@ derived_quantities:
     si_unit:
       names: [J, joule, joules]
       metric_prefixes:
-        patterns: [%pJ, %Pjoule, %Pjoules]
+        patterns: [%{p}J, %{P}joule, %{P}joules]
     additional_units:
       - names: [Wh, watt hour, watt hours]
         metric_prefixes:
-          patterns: [%pWh, %Pwatt hour, %Pwatt hours]
+          patterns: [%{p}Wh, %{P}watt hour, %{P}watt hours]
         conversion_factor: 3600
 
 #   - name: Force
@@ -156,12 +156,12 @@ derived_quantities:
     si_unit:
       names: [Pa, pascal]
       metric_prefixes:
-        patterns: [%pPa, %Ppascal]
+        patterns: [%{p}Pa, %{P}pascal]
     additional_units:
       - 101325 = atm, atmosphere, atmospheres
       - names: [bar]
         metric_prefixes:
-          patterns: [%pbar]
+          patterns: [%{p}bar]
         conversion_factor: 1e5
       - 3.386389e3 = inHg, inches of mercury
       - 133.3224 = mmHg, millimeters of mercury, millimetres of mercury, torr

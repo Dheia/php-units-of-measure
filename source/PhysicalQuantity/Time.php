@@ -28,12 +28,12 @@ class Time extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%ps',
+            '%{p}s',
             [
-                '%Psec',
-                '%Psecs',
-                '%Psecond',
-                '%Pseconds',
+                '%{P}sec',
+                '%{P}secs',
+                '%{P}second',
+                '%{P}seconds',
             ]
         );
 

@@ -26,10 +26,10 @@ class Mass extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             0.001,
-            '%pg',
+            '%{p}g',
             [
-                '%Pgram',
-                '%Pgrams',
+                '%{P}gram',
+                '%{P}grams',
             ]
         );
 

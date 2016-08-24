@@ -188,10 +188,10 @@ class Mass extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $kilogram,
             1e-3,
-            '%pg',
+            '%{p}g',
             [
-                '%Pgram',
-                '%Pgrams',
+                '%{P}gram',
+                '%{P}grams',
             ]
         );
     }
@@ -202,7 +202,7 @@ Here we're generating the native unit for mass, kilogram, adding it to the quant
 
 Of note, the second parameter (1e-3) is denoting that while kilograms are the native unit for Mass, there's a factor of 1/1000 between the kilogram and the base metric unit of mass: the gram.  For units such as seconds or meters where the native unit for the physical quantity is also the base unit for the metric prefix system, this factor would be 1.
 
-The 3rd and 4th parameters contain templates for the units' names and alternate aliases, respectively. The replacement strings '%p' and '%P' are used to denote the abbreviated and long-form metric prefixes.  For instance, '%pg' would generate the series `..., 'mg', 'cg', 'dg', 'g', ...`, while the template '%Pgram' would generate the series `..., 'milligram', 'centigram', 'decigram', 'gram', ...` .
+The 3rd and 4th parameters contain templates for the units' names and alternate aliases, respectively. The replacement strings '%{p}' and '%{P}' are used to denote the abbreviated and long-form metric prefixes.  For instance, '%{p}g' would generate the series `..., 'mg', 'cg', 'dg', 'g', ...`, while the template '%{P}gram' would generate the series `..., 'milligram', 'centigram', 'decigram', 'gram', ...` .
 
 #### Permanently Adding a New Unit of Measure to a Physical Quantity
 The examples above for adding new units of measure to physical quantities allow you to register new units for the duration of the PHP execution, but are lost once execution terminates; it would be necessary to repeat this process every time you created a new program with `Length` measurements and wanted to use cubits.

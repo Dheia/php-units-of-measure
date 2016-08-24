@@ -28,12 +28,12 @@ class ElectricCurrent extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pA',
+            '%{p}A',
             [
-                '%Pamp',
-                '%Pamps',
-                '%Pampere',
-                '%Pamperes',
+                '%{P}amp',
+                '%{P}amps',
+                '%{P}ampere',
+                '%{P}amperes',
             ]
         );
 

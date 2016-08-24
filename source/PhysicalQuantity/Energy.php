@@ -26,10 +26,10 @@ class Energy extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pJ',
+            '%{p}J',
             [
-                '%Pjoule',
-                '%Pjoules',
+                '%{P}joule',
+                '%{P}joules',
             ]
         );
 
@@ -40,10 +40,10 @@ class Energy extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pWh',
+            '%{p}Wh',
             [
-                '%Pwatt hour',
-                '%Pwatt hours',
+                '%{P}watt hour',
+                '%{P}watt hours',
             ]
         );
 

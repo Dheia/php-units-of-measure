@@ -28,12 +28,12 @@ class Length extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pm',
+            '%{p}m',
             [
-                '%Pmeter',
-                '%Pmeters',
-                '%Pmetre',
-                '%Pmetres',
+                '%{P}meter',
+                '%{P}meters',
+                '%{P}metre',
+                '%{P}metres',
             ]
         );
 

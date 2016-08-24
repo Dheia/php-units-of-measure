@@ -26,10 +26,10 @@ class Quantity extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pmol',
+            '%{p}mol',
             [
-                '%Pmole',
-                '%Pmoles',
+                '%{P}mole',
+                '%{P}moles',
             ]
         );
 

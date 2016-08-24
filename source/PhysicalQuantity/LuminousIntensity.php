@@ -25,9 +25,9 @@ class LuminousIntensity extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pcd',
+            '%{p}cd',
             [
-                '%Pcandela',
+                '%{P}candela',
             ]
         );
 

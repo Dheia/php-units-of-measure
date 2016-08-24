@@ -26,10 +26,10 @@ class SolidAngle extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%psr',
+            '%{p}sr',
             [
-                '%Psteradian',
-                '%Psteradians',
+                '%{P}steradian',
+                '%{P}steradians',
             ]
         );
 

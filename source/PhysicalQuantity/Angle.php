@@ -26,10 +26,10 @@ class Angle extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%prad',
+            '%{p}rad',
             [
-                '%Pradian',
-                '%Pradians',
+                '%{P}radian',
+                '%{P}radians',
             ]
         );
 
@@ -41,10 +41,10 @@ class Angle extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%pdeg',
+            '%{p}deg',
             [
-                '%Pdegree',
-                '%Pdegrees',
+                '%{P}degree',
+                '%{P}degrees',
             ]
         );
 
@@ -67,12 +67,12 @@ class Angle extends AbstractPhysicalQuantity
         static::addMissingSIPrefixedUnits(
             $newUnit,
             1,
-            '%Parcsec',
+            '%{P}arcsec',
             [
-                '%Parcsecond',
-                '%Parcseconds',
-                '%pasec',
-                '%pas',
+                '%{P}arcsecond',
+                '%{P}arcseconds',
+                '%{p}asec',
+                '%{p}as',
             ]
         );
 
