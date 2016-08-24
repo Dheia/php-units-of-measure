@@ -3,68 +3,66 @@
 
 define('PROJECT_ROOT', realpath(dirname(dirname(__FILE__))));
 define('GENERATED_CLASS_DIR', PROJECT_ROOT.'/source/PhysicalQuantity');
-define('CONFIG_YAML_PATH', PROJECT_ROOT.'/unitsofmeasure.yml');
+define('CONFIG_YAML_PATH', PROJECT_ROOT.'/physical_quantities.yml');
 
 require PROJECT_ROOT.'/vendor/autoload.php';
 
 use Symfony\Component\Yaml\Yaml;
 
-$unit_config = load_units_of_measure_definition(CONFIG_YAML_PATH);
+$config = load_physical_quantity_definitions(CONFIG_YAML_PATH);
 
-print "Clearing target directory ".GENERATED_CLASS_DIR."....\n";
+print "Clearing generated class directory ".GENERATED_CLASS_DIR."....\n";
 clear_generated_class_directory(GENERATED_CLASS_DIR);
 
 print "Rendering base quantities...\n";
-render_class_template($unit_config['base_quantities'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
+render_quantity_classes(
+    $config['base_quantities'],
+    PROJECT_ROOT.'/build/BaseQuantityClass.php.tpl',
+    GENERATED_CLASS_DIR
+);
 
 print "Rendering derived quantities...\n";
-render_class_template($unit_config['derived_quantities'], PROJECT_ROOT.'/build/BaseUnitClass.php.tpl');
+render_quantity_classes(
+    $config['derived_quantities'],
+    PROJECT_ROOT.'/build/BaseQuantityClass.php.tpl',
+    GENERATED_CLASS_DIR
+);
 
 print "Done.\n";
 
 
-function load_units_of_measure_definition($file_path) {
-    return Yaml::parse(file_get_contents($file_path));
+function load_physical_quantity_definitions($file_path)
+{
+    $config = Yaml::parse(file_get_contents($file_path));
+
+    // Convert the literal config from the yaml document into a more
+    // regular intermediate representation
+    foreach (['base_quantities', 'derived_quantities'] as $type) {
+        foreach($config[$type] as $index => $quantity) {
+            $quantity['si_unit'] = normalize_metric_prefixes($quantity['si_unit']);
+            $quantity = normalize_additional_units($quantity);
+            $quantity = flag_for_needs_metric_prefixes($quantity);
+            $config[$type][$index] = $quantity;
+        }
+    }
+    return $config;
 }
 
-function clear_generated_class_directory($path) {
-    foreach(array_diff(scandir($path), ['.', '..']) as $file) {
-        unlink($path.DIRECTORY_SEPARATOR.$file);
+function normalize_metric_prefixes($unit_definition)
+{
+    if (array_key_exists('metric_prefixes', $unit_definition) && !array_key_exists('si_unit_scaling_factor', $unit_definition['metric_prefixes'])) {
+        $unit_definition['metric_prefixes']['si_unit_scaling_factor'] = 1;
     }
+    return $unit_definition;
 }
 
-function render_class_template($base_units, $template_file_path) {
-    foreach($base_units as $data) {
-        $data['si_unit'] = normalize_metric_prefixes($data['si_unit']);
-        $data = normalize_additional_units($data);
-
-        $data = flag_for_needs_metric_prefixes($data);
-
-        $file_name = GENERATED_CLASS_DIR.'/'.$data['name'].'.php';
-        print "    - ".$file_name."\n";
-
-        ob_start();
-        require $template_file_path;
-        $content = ob_get_contents();
-        ob_end_clean();
-
-        file_put_contents($file_name, "<?php\n".$content);
-    }
-}
-
-function normalize_metric_prefixes($data) {
-    if (array_key_exists('metric_prefixes', $data) && !array_key_exists('si_unit_scaling_factor', $data['metric_prefixes'])) {
-        $data['metric_prefixes']['si_unit_scaling_factor'] = 1;
-    }
-    return $data;
-}
-
-function normalize_additional_units($data) {
-    if (!array_key_exists('additional_units', $data)) {
-        $data['additional_units'] = [];
+function normalize_additional_units($quantity)
+{
+    if (!array_key_exists('additional_units', $quantity)) {
+        $quantity['additional_units'] = [];
     }
 
-    foreach ($data['additional_units'] as $index => $unit_definition) {
+    foreach ($quantity['additional_units'] as $index => $unit_definition) {
         // If the definition is in string form, we need to parse it
         if (is_string($unit_definition)) {
             list($formula, $units) = explode('=', $unit_definition, 2);
@@ -85,27 +83,56 @@ function normalize_additional_units($data) {
 
         $unit_definition = normalize_metric_prefixes($unit_definition);
 
-        $data['additional_units'][$index] = $unit_definition;
+        $quantity['additional_units'][$index] = $unit_definition;
     }
 
-    return $data;
+    return $quantity;
 }
 
-function flag_for_needs_metric_prefixes($data) {
-    $data['has_metric_prefixes'] = false;
+function flag_for_needs_metric_prefixes($quantity)
+{
+    $quantity['has_metric_prefixes'] = false;
 
     // if the si unit has metric prefixes
-    if (array_key_exists('metric_prefixes', $data['si_unit'])) {
-        $data['has_metric_prefixes'] = true;
+    if (array_key_exists('metric_prefixes', $quantity['si_unit'])) {
+        $quantity['has_metric_prefixes'] = true;
     }
 
     // if any of the unit conversions have metric prefixes
-    foreach ($data['additional_units'] as $unit_definition) {
+    foreach ($quantity['additional_units'] as $unit_definition) {
         if (array_key_exists('metric_prefixes', $unit_definition)) {
-            $data['has_metric_prefixes'] = true;
+            $quantity['has_metric_prefixes'] = true;
             break;
         }
     }
 
-    return $data;
+    return $quantity;
+}
+
+function clear_generated_class_directory($path)
+{
+    foreach(array_diff(scandir($path), ['.', '..']) as $file) {
+        unlink($path.DIRECTORY_SEPARATOR.$file);
+    }
+}
+
+function render_quantity_classes($quantities, $template_file_path, $target_dir)
+{
+    foreach($quantities as $quantity) {
+        $content = capture_template($quantity, $template_file_path);
+
+        $file_name = $target_dir.'/'.$quantity['name'].'.php';
+        print "    - ".$file_name."\n";
+
+        file_put_contents($file_name, "<?php\n".$content);
+    }
+}
+
+function capture_template($data, $_template_file_path)
+{
+    ob_start();
+    require $_template_file_path;
+    $content = ob_get_contents();
+    ob_end_clean();
+    return $content;
 }

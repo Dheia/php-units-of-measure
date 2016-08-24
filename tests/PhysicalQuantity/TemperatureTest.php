@@ -83,4 +83,16 @@ class TemperatureTest extends AbstractPhysicalQuantityTestCase
     {
         return new Temperature(1, 'K');
     }
+
+    public function testToCelsius()
+    {
+        $unit = new Temperature(100, 'K');
+        $this->assertEquals(-173.15, $unit->toUnit('celsius'));
+    }
+
+    public function testToFahrenheit()
+    {
+        $unit = new Temperature(100, 'K');
+        $this->assertEquals(-279.67, $unit->toUnit('fahrenheit'));
+    }
 }
