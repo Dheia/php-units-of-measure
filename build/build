@@ -39,13 +39,49 @@ function load_physical_quantity_definitions($file_path)
     // regular intermediate representation
     foreach (['base_quantities', 'derived_quantities'] as $type) {
         foreach($config[$type] as $index => $quantity) {
-            $quantity['si_unit'] = normalize_metric_prefixes($quantity['si_unit']);
+            $quantity['si_unit'] = normalize_si_unit_definitions($quantity['si_unit']);
             $quantity = normalize_additional_units($quantity);
             $quantity = flag_for_needs_metric_prefixes($quantity);
             $config[$type][$index] = $quantity;
         }
     }
     return $config;
+}
+
+function normalize_si_unit_definitions($si_unit)
+{
+    // If the si unit is a shorthand string, expand it into an object
+    // with a 'names' list
+    if (is_string($si_unit)) {
+        $si_unit = [
+            'names' => explode_trim(",", $si_unit)
+        ];
+    }
+
+    // If any of the names have SI unit prefix replacement symbols, then
+    // add it to a running list of prefixed units, and strip that replacement
+    // symbol from the name
+    $prefixed_units = [];
+    foreach ($si_unit['names'] as $index => $name) {
+        if (preg_match('/%{.*}/', $name)) {
+            $prefixed_units[] = $name;
+            $si_unit['names'][$index] = preg_replace('/%{.*}/', '', $name);
+        }
+    }
+
+    // Make sure both lists are unique
+    $si_unit['names'] = array_unique($si_unit['names']);
+    $prefixed_units = array_unique($prefixed_units);
+
+    // if there's any SI prefix units, then add that data structure to the unit
+    // definition.
+    if (!empty($prefixed_units)) {
+        $si_unit['metric_prefixes']['patterns'] = $prefixed_units;
+    }
+
+    $si_unit = normalize_metric_prefixes($si_unit);
+
+    return $si_unit;
 }
 
 function normalize_metric_prefixes($unit_definition)
@@ -66,9 +102,9 @@ function normalize_additional_units($quantity)
         // If the definition is in string form, we need to parse it
         if (is_string($unit_definition)) {
             list($formula, $units) = explode('=', $unit_definition, 2);
-            $units = explode(',', $units);
+            $units = explode_trim(',', $units);
             $unit_definition = [
-                'names'             => array_map('trim', $units),
+                'names'             => $units,
                 'conversion_factor' => trim($formula)
             ];
         }
@@ -136,3 +172,10 @@ function capture_template($data, $_template_file_path)
     ob_end_clean();
     return $content;
 }
+
+function explode_trim($explode_on, $string) {
+    $elements = explode($explode_on, $string);
+    return array_map('trim', $elements);
+}
+
+
