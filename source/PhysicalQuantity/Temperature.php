@@ -38,7 +38,7 @@ class Temperature extends AbstractPhysicalQuantity
                 return $x - 273.15;
             },
             function ($x) {
-                return TODO - do the CAS and get an inverse function;
+                return "TODO - do the CAS and get an inverse function";
             }
         );
         $newUnit->addAlias('C');
@@ -51,7 +51,7 @@ class Temperature extends AbstractPhysicalQuantity
                 return ($x * 9 / 5) - 459.67;
             },
             function ($x) {
-                return TODO - do the CAS and get an inverse function;
+                return "TODO - do the CAS and get an inverse function";
             }
         );
         $newUnit->addAlias('F');
@@ -69,7 +69,7 @@ class Temperature extends AbstractPhysicalQuantity
                 return (373.15 - $x) * 3/2;
             },
             function ($x) {
-                return TODO - do the CAS and get an inverse function;
+                return "TODO - do the CAS and get an inverse function";
             }
         );
         $newUnit->addAlias('De');
@@ -82,7 +82,7 @@ class Temperature extends AbstractPhysicalQuantity
                 return ($x - 273.15) * 33/100;
             },
             function ($x) {
-                return TODO - do the CAS and get an inverse function;
+                return "TODO - do the CAS and get an inverse function";
             }
         );
         $newUnit->addAlias('N');
@@ -95,7 +95,7 @@ class Temperature extends AbstractPhysicalQuantity
                 return ($x - 273.15) * 4/5;
             },
             function ($x) {
-                return TODO - do the CAS and get an inverse function;
+                return "TODO - do the CAS and get an inverse function";
             }
         );
         $newUnit->addAlias('°Re');
@@ -111,7 +111,7 @@ class Temperature extends AbstractPhysicalQuantity
                 return ($x - 273.15) * 21/40 + 7.5;
             },
             function ($x) {
-                return TODO - do the CAS and get an inverse function;
+                return "TODO - do the CAS and get an inverse function";
             }
         );
         $newUnit->addAlias('°Ro');

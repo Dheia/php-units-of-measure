@@ -131,7 +131,7 @@ class ConfigModel
 
                 // Copy over the conversion formula, and generate its inverse
                 $unit_ir['from_si_unit_formula'] = $unit_definition['formula'];
-                $unit_ir['to_si_unit_formula'] = 'TODO - do the CAS and get an inverse function'; # TODO - do the CAS and get an inverse function
+                $unit_ir['to_si_unit_formula'] = '"TODO - do the CAS and get an inverse function"'; # TODO - do the CAS and get an inverse function
 
                 // "PHP-ify" the functions - any variables in formulae like 'x' need to be '$x'
                 $unit_ir['from_si_unit_formula'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_ir['from_si_unit_formula']);
