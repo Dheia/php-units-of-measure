@@ -6,144 +6,30 @@ define('GENERATED_CLASS_DIR', PROJECT_ROOT.'/source/PhysicalQuantity');
 define('CONFIG_YAML_PATH', PROJECT_ROOT.'/physical_quantities.yml');
 
 require PROJECT_ROOT.'/vendor/autoload.php';
+require PROJECT_ROOT.'/build/ConfigModel.php';
 
-use Symfony\Component\Yaml\Yaml;
-
-$config = load_physical_quantity_definitions(CONFIG_YAML_PATH);
+$config = new ConfigModel(CONFIG_YAML_PATH);
+$config->parse_intermediate_representation();
 
 print "Clearing generated class directory ".GENERATED_CLASS_DIR."....\n";
 clear_generated_class_directory(GENERATED_CLASS_DIR);
 
 print "Rendering base quantities...\n";
 render_quantity_classes(
-    $config['base_quantities'],
+    $config->get_intermediate_representation()['base_quantities'],
     PROJECT_ROOT.'/build/BaseQuantityClass.php.tpl',
     GENERATED_CLASS_DIR
 );
 
 print "Rendering derived quantities...\n";
 render_quantity_classes(
-    $config['derived_quantities'],
+    $config->get_intermediate_representation()['derived_quantities'],
     PROJECT_ROOT.'/build/BaseQuantityClass.php.tpl',
     GENERATED_CLASS_DIR
 );
 
 print "Done.\n";
 
-
-function load_physical_quantity_definitions($file_path)
-{
-    $config = Yaml::parse(file_get_contents($file_path));
-
-    // Convert the literal config from the yaml document into a more
-    // regular intermediate representation
-    foreach (['base_quantities', 'derived_quantities'] as $type) {
-        foreach($config[$type] as $index => $quantity) {
-            $quantity['si_unit'] = normalize_si_unit_definitions($quantity['si_unit']);
-            $quantity = normalize_additional_units($quantity);
-            $quantity = flag_for_needs_metric_prefixes($quantity);
-            $config[$type][$index] = $quantity;
-        }
-    }
-    return $config;
-}
-
-function normalize_si_unit_definitions($si_unit)
-{
-    // If the si unit is a shorthand string, expand it into an object
-    // with a 'names' list
-    if (is_string($si_unit)) {
-        $si_unit = [
-            'names' => explode_trim(",", $si_unit)
-        ];
-    }
-
-    // If any of the names have SI unit prefix replacement symbols, then
-    // add it to a running list of prefixed units, and strip that replacement
-    // symbol from the name
-    $prefixed_units = [];
-    foreach ($si_unit['names'] as $index => $name) {
-        if (preg_match('/%{.*}/', $name)) {
-            $prefixed_units[] = $name;
-            $si_unit['names'][$index] = preg_replace('/%{.*}/', '', $name);
-        }
-    }
-
-    // Make sure both lists are unique
-    $si_unit['names'] = array_unique($si_unit['names']);
-    $prefixed_units = array_unique($prefixed_units);
-
-    // if there's any SI prefix units, then add that data structure to the unit
-    // definition.
-    if (!empty($prefixed_units)) {
-        $si_unit['metric_prefixes']['patterns'] = $prefixed_units;
-    }
-
-    $si_unit = normalize_metric_prefixes($si_unit);
-
-    return $si_unit;
-}
-
-function normalize_metric_prefixes($unit_definition)
-{
-    if (array_key_exists('metric_prefixes', $unit_definition) && !array_key_exists('si_unit_scaling_factor', $unit_definition['metric_prefixes'])) {
-        $unit_definition['metric_prefixes']['si_unit_scaling_factor'] = 1;
-    }
-    return $unit_definition;
-}
-
-function normalize_additional_units($quantity)
-{
-    if (!array_key_exists('additional_units', $quantity)) {
-        $quantity['additional_units'] = [];
-    }
-
-    foreach ($quantity['additional_units'] as $index => $unit_definition) {
-        // If the definition is in string form, we need to parse it
-        if (is_string($unit_definition)) {
-            list($formula, $units) = explode('=', $unit_definition, 2);
-            $units = explode_trim(',', $units);
-            $unit_definition = [
-                'names'             => $units,
-                'conversion_factor' => trim($formula)
-            ];
-        }
-
-        // Any variables in formulae like 'x' need to be '$x'
-        if (array_key_exists('from_si_unit_formula', $unit_definition)) {
-            $unit_definition['from_si_unit_formula'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_definition['from_si_unit_formula']);
-        }
-        if (array_key_exists('to_si_unit_formula', $unit_definition)) {
-            $unit_definition['to_si_unit_formula'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_definition['to_si_unit_formula']);
-        }
-
-        $unit_definition = normalize_metric_prefixes($unit_definition);
-
-        $quantity['additional_units'][$index] = $unit_definition;
-    }
-
-    return $quantity;
-}
-
-function flag_for_needs_metric_prefixes($quantity)
-{
-    $quantity['has_metric_prefixes'] = false;
-
-    // if the si unit has metric prefixes
-    if (array_key_exists('metric_prefixes', $quantity['si_unit'])) {
-        $quantity['has_metric_prefixes'] = true;
-    }
-
-    // if any of the unit conversions have metric prefixes
-    foreach ($quantity['additional_units'] as $unit_definition) {
-        if (array_key_exists('metric_prefixes', $unit_definition)) {
-            $quantity['has_metric_prefixes'] = true;
-            break;
-        }
-    }
-
-    return $quantity;
-}
 
 function clear_generated_class_directory($path)
 {
@@ -172,10 +58,3 @@ function capture_template($data, $_template_file_path)
     ob_end_clean();
     return $content;
 }
-
-function explode_trim($explode_on, $string) {
-    $elements = explode($explode_on, $string);
-    return array_map('trim', $elements);
-}
-
-

@@ -36,7 +36,7 @@ class Pressure extends AbstractPhysicalQuantity
         $newUnit->addAlias('atmospheres');
         static::addUnit($newUnit);
 
-        $newUnit = UnitOfMeasure::linearUnitFactory('bar', 100000);
+        $newUnit = UnitOfMeasure::linearUnitFactory('bar', 1e5);
         static::addUnit($newUnit);
         static::addMissingSIPrefixedUnits(
             $newUnit,

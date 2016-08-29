@@ -15,10 +15,10 @@ if (!defined('TEMPLATE_FUNCTIONS_LOADED')) {
 
     function printSiPrefixesHandler($unit_definition)
     {
-        if (array_key_exists('metric_prefixes', $unit_definition)) {?>
+        if ($unit_definition['metric_prefixes']['patterns'] !== []) {?>
         static::addMissingSIPrefixedUnits(
             $newUnit,
-            <?=$unit_definition['metric_prefixes']['si_unit_scaling_factor']?>,
+            <?=$unit_definition['metric_prefixes']['base_metric_unit_scaling_factor']?>,
             '<?=$unit_definition['metric_prefixes']['patterns'][0]?>',
             [
 <?php       foreach ($unit_definition['metric_prefixes']['patterns'] as $index => $pattern) {
