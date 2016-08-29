@@ -68,11 +68,9 @@ base_quantities:
 
 derived_quantities:
   - name: Acceleration
-    base_unit_factors: Length / Time / Time
     si_unit: [m/s^2, m/s², meter per second squared, meters per second squared, metre per second squared, metres per second squared]
 
   - name: Area
-    base_unit_factors: Length * Length
     si_unit: [m^2, m², meter squared, square meter, square meters, meters squared, metre squared, metres squared]
     additional_units:
       - 1e-6 = mm^2, mm², millimeter squared, square millimeter, square millimeters, millimeters squared, millimetre squared, millimetres squared
@@ -89,16 +87,14 @@ derived_quantities:
       - 4046.8564224 = ac, acre, acres
 
   - name: Energy
-    base_unit_factors: Mass * Length * Length / Time / Time
     si_unit: [%{p}J, %{P}joule, %{P}joules]
     additional_units:
       - 3600 = %{p}Wh, %{P}watt hour, %{P}watt hours
 
-#   - name: Force
-#     base_unit_factors: Mass * Length / Time / Time
+  # - name: Force
+  #   si_unit: [%{p}N, %{P}newton]
 
   - name: Pressure
-    base_unit_factors: Mass / Time / Time / Length
     si_unit: [%{p}Pa, %{P}pascal]
     additional_units:
       - 101325 = atm, atmosphere, atmospheres
@@ -108,7 +104,6 @@ derived_quantities:
       - 6.894757e3 = psi, pounds per square inch
 
   - name: Velocity
-    base_unit_factors: Length / Time
     si_unit: [m/s, meters/sec, meters per second, meter per second, metres per second, metre per second]
     additional_units:
       - 0.277778 = km/h, km/hour, kilometer per hour, kilometers per hour, kilometre per hour, kilometres per hour
@@ -117,7 +112,6 @@ derived_quantities:
       - 0.514444 = knot, knots
 
   - name: Volume
-    base_unit_factors: Length * Length * Length
     si_unit: [m^3, m³, cubic meter, cubic meters, cubic metre, cubic metres]
     additional_units:
       - 1e-9 = mm^3, mm³, cubic millimeter, cubic millimeters, cubic millimetre, cubic millimetres
