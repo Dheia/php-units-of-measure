@@ -3,6 +3,8 @@
 
     "description": "A PHP library for converting between standard units of measure.",
 
+    "type": "library",
+
     "keywords": [
          "measurements", "data", "conversion"
      ],

@@ -91,9 +91,6 @@ derived_quantities:
     additional_units:
       - 3600 = %{p}Wh, %{P}watt hour, %{P}watt hours
 
-  # - name: Force
-  #   si_unit: [%{p}N, %{P}newton]
-
   - name: Pressure
     si_unit: [%{p}Pa, %{P}pascal]
     additional_units:
