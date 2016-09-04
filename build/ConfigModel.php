@@ -94,8 +94,8 @@ class ConfigModel
         if ($with_conversion_factor) {
             $rep['conversion_factor'] = 1;
         } else {
-            $rep['from_si_unit_formula'] = '';
-            $rep['to_si_unit_formula']   = '';
+            $rep['from_si_unit_expression'] = '';
+            $rep['to_si_unit_expression']   = '';
         }
         return $rep;
     }
@@ -113,29 +113,29 @@ class ConfigModel
             // Convert the compact string form into an equivalent object, if
             // necessary
             if (is_string($unit_definition)) {
-                list($formula, $names) = explode('=', $unit_definition, 2);
+                list($expression, $names) = explode('=', $unit_definition, 2);
                 $unit_definition = [
-                    'names'   => $this->explode_trim(',', $names),
-                    'formula' => trim($formula),
+                    'names'      => $this->explode_trim(',', $names),
+                    'expression' => trim($expression),
                 ];
             }
 
-            // If the conversion formula has no variable "x", it's a simple scaling factor,
-            // copy it over.
-            if (!preg_match('/x/', $unit_definition['formula'])) {
+            // If the conversion expression has no variable "x", it's a simple scaling factor.
+            // Copy it over.
+            if (!preg_match('/x/', $unit_definition['expression'])) {
                 $unit_ir = $this->get_empty_additional_unit_intermediate_representation(true);
-                $unit_ir['conversion_factor'] = $unit_definition['formula'];
+                $unit_ir['conversion_factor'] = $unit_definition['expression'];
             } else {
-                // Else, the conversion formula is algebraic
+                // Else, the conversion expression is algebraic
                 $unit_ir = $this->get_empty_additional_unit_intermediate_representation(false);
 
-                // Copy over the conversion formula, and generate its inverse
-                $unit_ir['from_si_unit_formula'] = $unit_definition['formula'];
-                $unit_ir['to_si_unit_formula'] = '"TODO - do the CAS and get an inverse function"'; # TODO - do the CAS and get an inverse function
+                // Copy over the conversion expression, and generate its inverse
+                $unit_ir['from_si_unit_expression'] = $unit_definition['expression'];
+                $unit_ir['to_si_unit_expression'] = '"TODO - do the CAS and get an inverse expression"'; # TODO - do the CAS and get an inverse function
 
-                // "PHP-ify" the functions - any variables in formulae like 'x' need to be '$x'
-                $unit_ir['from_si_unit_formula'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_ir['from_si_unit_formula']);
-                $unit_ir['to_si_unit_formula'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_ir['to_si_unit_formula']);
+                // "PHP-ify" the functions - any variables in expressions like 'x' need to be '$x'
+                $unit_ir['from_si_unit_expression'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_ir['from_si_unit_expression']);
+                $unit_ir['to_si_unit_expression'] = preg_replace('/([^\$]*)x/', '${1}$x', $unit_ir['to_si_unit_expression']);
             }
 
             // Normalize the unit names and metric prefix patterns

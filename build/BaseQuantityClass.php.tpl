@@ -40,10 +40,10 @@ if (!defined('TEMPLATE_FUNCTIONS_LOADED')) {
         $newUnit = new UnitOfMeasure(
             '<?=$unit_definition['names'][0]?>',
             function ($x) {
-                return <?=$unit_definition['from_si_unit_formula']?>;
+                return <?=$unit_definition['from_si_unit_expression']?>;
             },
             function ($x) {
-                return <?=$unit_definition['to_si_unit_formula']?>;
+                return <?=$unit_definition['to_si_unit_expression']?>;
             }
         );
 <?php   }
