@@ -120,13 +120,13 @@ class ConfigModel
                 ];
             }
 
-            // If the conversion expression has no variable "x", it's a simple scaling factor.
-            // Copy it over.
+            // If the conversion expression has no variable "x", it's a scaling
+            // factor with x* implied.  Copy it over.
             if (!preg_match('/x/', $unit_definition['expression'])) {
                 $unit_ir = $this->get_empty_additional_unit_intermediate_representation(true);
                 $unit_ir['conversion_factor'] = $unit_definition['expression'];
             } else {
-                // Else, the conversion expression is algebraic
+                // Else, the conversion expression is in terms of "x"
                 $unit_ir = $this->get_empty_additional_unit_intermediate_representation(false);
 
                 // Copy over the conversion expression, and generate its inverse
